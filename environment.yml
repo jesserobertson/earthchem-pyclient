@@ -1,0 +1,17 @@
+name: earthchem
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+  - pandas
+  - geopandas
+  - requests
+  - pytest
+  - coverage
+  - ipykernel
+  - owslib
+  - geojson
+  - pip:
+    - versioneer
+    - pytest-cov
+    - pytest-runner
