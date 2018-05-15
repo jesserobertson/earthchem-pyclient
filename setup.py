@@ -35,6 +35,7 @@ setup(
     install_requires=[
         'geopandas',
         'requests',
+        'cython',
         'cartopy'
     ],
     setup_requires=[
