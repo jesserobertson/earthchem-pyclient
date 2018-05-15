@@ -7,6 +7,28 @@
 
 from .documentation import get_documentation
 
+import textwrap
+
+def make_query_docstring():
+    """ Constructs a docstring from the documentation dictionary
+    """
+    wrapper = textwrap.TextWrapper(width=80, subsequent_indent='    ')
+    docstr = textwrap.dedent("""
+        Holds a query for the EarthChem REST API
+
+        Initialize by providing key-value pairs to build into a query URL. The
+        URL is available in the `url` attribute, and the results from the
+        `results` attribute.
+
+        Providing a keyword not in the list below will raise a KeyError.
+
+        Allowed keywords are:
+        """)
+    docdict = get_documentation()
+    for item in docdict.items():
+        docstr += '\n' + wrapper.fill('{0} - {1}'.format(*item))
+    return docstr
+
 class RESTClientQuery(dict):
 
     __doc__ = make_query_docstring()

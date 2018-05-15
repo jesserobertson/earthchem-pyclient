@@ -1,6 +1,6 @@
-from . import documentation, requests
+from . import documentation, query
 
-
+# Versioneer imports
 from ._version import get_versions
 __version__ = get_versions()['version']
 del get_versions
