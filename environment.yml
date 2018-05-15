@@ -11,7 +11,10 @@ dependencies:
   - ipykernel
   - owslib
   - geojson
+  - cartopy
+  - pyyaml
   - pip:
     - versioneer
     - pytest-cov
     - pytest-runner
+    - --editable=.
