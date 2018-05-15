@@ -14,7 +14,8 @@
             ],
             "file_exclude_patterns": [
                 "*.so",
-                "ext/*.c"
+                "ext/*.c",
+                ".coverage"
             ]
         }
 	]
