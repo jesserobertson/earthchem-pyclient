@@ -17,4 +17,5 @@ dependencies:
     - versioneer
     - pytest-cov
     - pytest-runner
+    - nbdime
     - --editable=.
