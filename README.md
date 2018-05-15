@@ -1,6 +1,6 @@
 # Earthchem & PyData
 
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/earthchem.svg)](https://pypi.python.org/pypi/earthchem/)
+[![PyPI](https://img.shields.io/pypi/v/earthchem.svg)](https://pypi.python.org/pypi/earthchem/)
 [![GitHub license](https://img.shields.io/github/license/jesserobertson/earthchem-pyclient.svg)](https://github.com/jesserobertson/earthchem-pyclient/blob/master/LICENSE.txt)
 
 This project wraps the Earthchem web services to provide easy access to geochemical data from [IEDA](https://www.iedadata.org/) in ready-to-use format in your favourite PyData environment.
