@@ -18,7 +18,7 @@ setup(
     long_description='making something good here',
     author='Jess Robertson',
     author_email='jesse.robertson@csiro.au',
-    url='ssh://git@bitbucket.csiro.au:7999/rose/earthchem.git',
+    url='https://github.com/jesserobertson/earthchem.git',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
