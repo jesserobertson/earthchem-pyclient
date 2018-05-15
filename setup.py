@@ -35,7 +35,8 @@ setup(
     install_requires=[
         'geopandas',
         'requests',
-        'cython'
+        'beautifulsoup4',
+        'lxml'
     ],
     extras_require={
         'dev': [
