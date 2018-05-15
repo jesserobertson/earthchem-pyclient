@@ -44,6 +44,10 @@ class RESTClientQuery(dict):
             # Add to dictionary
             self[key] = str(value)
 
+    def __repr__(self):
+        kwargs = ', '.join('{0}={1}'.format(*it) for it in self.items())
+        return 'RESTClientQuery({})'.format(kwargs)
+
     def __setitem__(self, key, value):
         """ Sets a particular query term, making sure that the values 
             are ok etc. 
