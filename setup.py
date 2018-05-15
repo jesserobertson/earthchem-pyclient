@@ -16,6 +16,7 @@ setup(
     version=versioneer.get_version(),
     description='Data slurper for getting stuff from Earthchem services',
     long_description='making something good here',
+    license='MIT',
     author='Jess Robertson',
     author_email='jesse.robertson@csiro.au',
     url='https://github.com/jesserobertson/earthchem.git',
@@ -30,6 +31,10 @@ setup(
         'Topic :: Scientific/Engineering',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
+    project_urls={
+        'Test coverage': 'https://coveralls.io/github/jesserobertson/earthchem-pyclient',
+        'Test status': 'https://travis-ci.org/jesserobertson/earthchem-pyclient'
+    },
 
     # Dependencies
     install_requires=[
