@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="EarthChemQuery">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="QueryParameters">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Reference" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="author" type="xs:string" use="optional"/>
+									<xs:attribute name="title" type="xs:string" use="optional"/>
+									<xs:attribute name="journal" type="xs:string" use="optional"/>
+									<xs:attribute name="doi" type="xs:string" use="optional"/>
+									<xs:attribute name="minpubyear" type="xs:string" use="optional"/>
+									<xs:attribute name="maxpubyear" type="xs:string" use="optional"/>
+									<xs:attribute name="exactpubyear" type="xs:string" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Keyword"  minOccurs="0" maxOccurs="1" />
+							<xs:element name="SampleID"  minOccurs="0" maxOccurs="1" />
+							<xs:element name="CruiseID"  minOccurs="0" maxOccurs="1" />
+							<xs:element name="Location"  minOccurs="0" maxOccurs="1" >
+								<xs:complexType>
+									<xs:attribute name="polygon" type="xs:string" use="optional"/>
+									<xs:attribute name="north" type="xs:string" use="optional"/>
+									<xs:attribute name="east" type="xs:string" use="optional"/>
+									<xs:attribute name="south" type="xs:string" use="optional"/>
+									<xs:attribute name="west" type="xs:string" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="SampleType"  minOccurs="0" maxOccurs="1" >
+								<xs:complexType>
+									<xs:attribute name="level1" use="optional">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value=""/>
+												<xs:enumeration value="alteration"/>
+												<xs:enumeration value="igneous"/>
+												<xs:enumeration value="metamorphic"/>
+												<xs:enumeration value="notfound"/>
+												<xs:enumeration value="ore"/>
+												<xs:enumeration value="sedimentary"/>
+												<xs:enumeration value="vein"/>
+												<xs:enumeration value="xenolith"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="level2" use="optional">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value=""/>
+												<xs:enumeration value="plutonic"/>
+												<xs:enumeration value="volcanic"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="level3" use="optional">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value=""/>
+												<xs:enumeration value="exotic"/>
+												<xs:enumeration value="felsic"/>
+												<xs:enumeration value="intermediate"/>
+												<xs:enumeration value="mafic"/>
+												<xs:enumeration value="ultramafic"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="level4" use="optional">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value=""/>
+												<xs:enumeration value="absarokite"/>
+												<xs:enumeration value="adakite"/>
+												<xs:enumeration value="adamellite"/>
+												<xs:enumeration value="agglomerate"/>
+												<xs:enumeration value="alaskite"/>
+												<xs:enumeration value="albitite"/>
+												<xs:enumeration value="alkali basalt"/>
+												<xs:enumeration value="allivalite"/>
+												<xs:enumeration value="alluvium"/>
+												<xs:enumeration value="alvikite"/>
+												<xs:enumeration value="amphibolite"/>
+												<xs:enumeration value="andesite"/>
+												<xs:enumeration value="anhydrite"/>
+												<xs:enumeration value="ankaramite"/>
+												<xs:enumeration value="anorthosite"/>
+												<xs:enumeration value="aplite"/>
+												<xs:enumeration value="arenite"/>
+												<xs:enumeration value="argillite"/>
+												<xs:enumeration value="argillitic"/>
+												<xs:enumeration value="arkose"/>
+												<xs:enumeration value="ash"/>
+												<xs:enumeration value="augengneiss"/>
+												<xs:enumeration value="augitite"/>
+												<xs:enumeration value="basalt"/>
+												<xs:enumeration value="basaltic-andesite"/>
+												<xs:enumeration value="basanite"/>
+												<xs:enumeration value="benmoreite"/>
+												<xs:enumeration value="bergalite"/>
+												<xs:enumeration value="biogenic"/>
+												<xs:enumeration value="black-shale"/>
+												<xs:enumeration value="blueschist"/>
+												<xs:enumeration value="boninite"/>
+												<xs:enumeration value="breccia"/>
+												<xs:enumeration value="calcarenite"/>
+												<xs:enumeration value="calcite"/>
+												<xs:enumeration value="calcrete"/>
+												<xs:enumeration value="calcsilicate"/>
+												<xs:enumeration value="carbonate"/>
+												<xs:enumeration value="carbonatite"/>
+												<xs:enumeration value="chalk"/>
+												<xs:enumeration value="charnockite"/>
+												<xs:enumeration value="chemical sediments"/>
+												<xs:enumeration value="chert"/>
+												<xs:enumeration value="chert-jasperoid"/>
+												<xs:enumeration value="chromitite"/>
+												<xs:enumeration value="clastic"/>
+												<xs:enumeration value="clay"/>
+												<xs:enumeration value="claystone"/>
+												<xs:enumeration value="clinopyroxenite"/>
+												<xs:enumeration value="coal"/>
+												<xs:enumeration value="comendite"/>
+												<xs:enumeration value="concretion"/>
+												<xs:enumeration value="conglomerate"/>
+												<xs:enumeration value="coquina"/>
+												<xs:enumeration value="cortlandite"/>
+												<xs:enumeration value="crinanite"/>
+												<xs:enumeration value="dacite"/>
+												<xs:enumeration value="dellenite"/>
+												<xs:enumeration value="diabase"/>
+												<xs:enumeration value="diatomite"/>
+												<xs:enumeration value="diorite"/>
+												<xs:enumeration value="disseminated"/>
+												<xs:enumeration value="dolerite"/>
+												<xs:enumeration value="dolomite"/>
+												<xs:enumeration value="domite"/>
+												<xs:enumeration value="dunite"/>
+												<xs:enumeration value="eclogite"/>
+												<xs:enumeration value="enderbite"/>
+												<xs:enumeration value="epidotite"/>
+												<xs:enumeration value="epigenetic"/>
+												<xs:enumeration value="essexite"/>
+												<xs:enumeration value="etindite"/>
+												<xs:enumeration value="eucrite"/>
+												<xs:enumeration value="eutaxite"/>
+												<xs:enumeration value="evaporites"/>
+												<xs:enumeration value="exhalite"/>
+												<xs:enumeration value="fault"/>
+												<xs:enumeration value="feldspathic"/>
+												<xs:enumeration value="felsite"/>
+												<xs:enumeration value="fenite"/>
+												<xs:enumeration value="fergusite"/>
+												<xs:enumeration value="flysch"/>
+												<xs:enumeration value="foidite"/>
+												<xs:enumeration value="foyaite"/>
+												<xs:enumeration value="gabbro"/>
+												<xs:enumeration value="garnetite"/>
+												<xs:enumeration value="gauteite"/>
+												<xs:enumeration value="glass"/>
+												<xs:enumeration value="glauconite"/>
+												<xs:enumeration value="glenmuirite"/>
+												<xs:enumeration value="glimmerite"/>
+												<xs:enumeration value="gneiss"/>
+												<xs:enumeration value="gossan"/>
+												<xs:enumeration value="gouge"/>
+												<xs:enumeration value="granite"/>
+												<xs:enumeration value="granodiorite"/>
+												<xs:enumeration value="granofels"/>
+												<xs:enumeration value="granophyre"/>
+												<xs:enumeration value="granulite"/>
+												<xs:enumeration value="gravel"/>
+												<xs:enumeration value="gravel and sand"/>
+												<xs:enumeration value="graywacke"/>
+												<xs:enumeration value="grazinite"/>
+												<xs:enumeration value="greenschist"/>
+												<xs:enumeration value="greenstone"/>
+												<xs:enumeration value="greisen"/>
+												<xs:enumeration value="greywacke"/>
+												<xs:enumeration value="gypsum"/>
+												<xs:enumeration value="harzburgite"/>
+												<xs:enumeration value="hauynophyre"/>
+												<xs:enumeration value="hawaiite"/>
+												<xs:enumeration value="hornblendite"/>
+												<xs:enumeration value="hornfels"/>
+												<xs:enumeration value="hot springs"/>
+												<xs:enumeration value="icelandite"/>
+												<xs:enumeration value="ignimbrite"/>
+												<xs:enumeration value="iron"/>
+												<xs:enumeration value="iron formation"/>
+												<xs:enumeration value="iron/manganese"/>
+												<xs:enumeration value="ironstone"/>
+												<xs:enumeration value="katungite"/>
+												<xs:enumeration value="keratophyre"/>
+												<xs:enumeration value="kimberlite"/>
+												<xs:enumeration value="lamproite"/>
+												<xs:enumeration value="lamprophyre"/>
+												<xs:enumeration value="latite"/>
+												<xs:enumeration value="leucitite"/>
+												<xs:enumeration value="leucophyre"/>
+												<xs:enumeration value="lherzolite"/>
+												<xs:enumeration value="limburgite"/>
+												<xs:enumeration value="limestone"/>
+												<xs:enumeration value="madupite"/>
+												<xs:enumeration value="magmatic segregation"/>
+												<xs:enumeration value="magnesite"/>
+												<xs:enumeration value="magnetite"/>
+												<xs:enumeration value="malignite"/>
+												<xs:enumeration value="marble"/>
+												<xs:enumeration value="marl"/>
+												<xs:enumeration value="marlstone"/>
+												<xs:enumeration value="massive sulfide"/>
+												<xs:enumeration value="megacryst"/>
+												<xs:enumeration value="melange"/>
+												<xs:enumeration value="meta-adamellite"/>
+												<xs:enumeration value="meta-andesite"/>
+												<xs:enumeration value="meta-aplite"/>
+												<xs:enumeration value="meta-arenite"/>
+												<xs:enumeration value="meta-argillite"/>
+												<xs:enumeration value="meta-arkose"/>
+												<xs:enumeration value="meta-basalt"/>
+												<xs:enumeration value="meta-basite"/>
+												<xs:enumeration value="meta-breccia"/>
+												<xs:enumeration value="meta-carbonatite"/>
+												<xs:enumeration value="meta-chert"/>
+												<xs:enumeration value="meta-claystone"/>
+												<xs:enumeration value="meta-conglomerate"/>
+												<xs:enumeration value="meta-diorite"/>
+												<xs:enumeration value="meta-dunite"/>
+												<xs:enumeration value="meta-exhalite"/>
+												<xs:enumeration value="meta-felsite"/>
+												<xs:enumeration value="meta-gabbro"/>
+												<xs:enumeration value="meta-grabbro"/>
+												<xs:enumeration value="meta-granite"/>
+												<xs:enumeration value="meta-granodiorite"/>
+												<xs:enumeration value="meta-graywacke"/>
+												<xs:enumeration value="meta-hornblendite"/>
+												<xs:enumeration value="meta-igneous"/>
+												<xs:enumeration value="meta-keratophyre"/>
+												<xs:enumeration value="meta-latite"/>
+												<xs:enumeration value="metaliferous"/>
+												<xs:enumeration value="meta-mafite"/>
+												<xs:enumeration value="meta-monzodiorite"/>
+												<xs:enumeration value="meta-monzonite"/>
+												<xs:enumeration value="meta-norite"/>
+												<xs:enumeration value="meta-pegmatite"/>
+												<xs:enumeration value="meta-pelite"/>
+												<xs:enumeration value="meta-peridotite"/>
+												<xs:enumeration value="meta-porphyry"/>
+												<xs:enumeration value="meta-pyroxenite"/>
+												<xs:enumeration value="meta-quartzite"/>
+												<xs:enumeration value="meta-rhyodacite"/>
+												<xs:enumeration value="meta-rhyoite"/>
+												<xs:enumeration value="meta-sandstone"/>
+												<xs:enumeration value="meta-sediment"/>
+												<xs:enumeration value="meta-seyenite"/>
+												<xs:enumeration value="meta-shale"/>
+												<xs:enumeration value="meta-spilite"/>
+												<xs:enumeration value="meta-syenite"/>
+												<xs:enumeration value="meta-tactite"/>
+												<xs:enumeration value="meta-tonalite"/>
+												<xs:enumeration value="meta-trachyte"/>
+												<xs:enumeration value="meta-trondhjemite"/>
+												<xs:enumeration value="meta-tuff"/>
+												<xs:enumeration value="meta-volcaniclastic"/>
+												<xs:enumeration value="migmatite"/>
+												<xs:enumeration value="minette"/>
+												<xs:enumeration value="monchiquite"/>
+												<xs:enumeration value="monzodiorite"/>
+												<xs:enumeration value="monzogabbro"/>
+												<xs:enumeration value="monzogranite"/>
+												<xs:enumeration value="monzonite"/>
+												<xs:enumeration value="monzosyenite"/>
+												<xs:enumeration value="mud"/>
+												<xs:enumeration value="mudstone"/>
+												<xs:enumeration value="mugearite"/>
+												<xs:enumeration value="mylonite"/>
+												<xs:enumeration value="nephelin-basalt"/>
+												<xs:enumeration value="nephelin-gabbro"/>
+												<xs:enumeration value="nephelinite"/>
+												<xs:enumeration value="norite"/>
+												<xs:enumeration value="not-given"/>
+												<xs:enumeration value="novaculite"/>
+												<xs:enumeration value="oil shale"/>
+												<xs:enumeration value="opal"/>
+												<xs:enumeration value="orendite"/>
+												<xs:enumeration value="orthogneiss"/>
+												<xs:enumeration value="orthopyroxenite"/>
+												<xs:enumeration value="pantellerite"/>
+												<xs:enumeration value="paragneiss"/>
+												<xs:enumeration value="pegmatite"/>
+												<xs:enumeration value="pelite"/>
+												<xs:enumeration value="peridotite"/>
+												<xs:enumeration value="phillipsite"/>
+												<xs:enumeration value="phonolite"/>
+												<xs:enumeration value="phosphate"/>
+												<xs:enumeration value="phosphorite"/>
+												<xs:enumeration value="phyllite"/>
+												<xs:enumeration value="picrite"/>
+												<xs:enumeration value="placer"/>
+												<xs:enumeration value="plutonic"/>
+												<xs:enumeration value="porcellanite"/>
+												<xs:enumeration value="porphyry-stockwork"/>
+												<xs:enumeration value="propylitic"/>
+												<xs:enumeration value="pumice"/>
+												<xs:enumeration value="pyrite"/>
+												<xs:enumeration value="pyroclastic-fall"/>
+												<xs:enumeration value="pyroclastic-flow"/>
+												<xs:enumeration value="pyroxenite"/>
+												<xs:enumeration value="pyrrhotite"/>
+												<xs:enumeration value="quartz"/>
+												<xs:enumeration value="quartz arenite"/>
+												<xs:enumeration value="quartzite"/>
+												<xs:enumeration value="quartz vein"/>
+												<xs:enumeration value="replacement"/>
+												<xs:enumeration value="replacement-massive sulfide"/>
+												<xs:enumeration value="residual"/>
+												<xs:enumeration value="rhyodacite"/>
+												<xs:enumeration value="rhyolite"/>
+												<xs:enumeration value="rodingite"/>
+												<xs:enumeration value="sand"/>
+												<xs:enumeration value="sandstone"/>
+												<xs:enumeration value="sanidinite"/>
+												<xs:enumeration value="sannaite"/>
+												<xs:enumeration value="santorinite"/>
+												<xs:enumeration value="sanukite"/>
+												<xs:enumeration value="schist"/>
+												<xs:enumeration value="scoria"/>
+												<xs:enumeration value="sericitic"/>
+												<xs:enumeration value="serpentinite"/>
+												<xs:enumeration value="shonkinite"/>
+												<xs:enumeration value="shoshonite"/>
+												<xs:enumeration value="siderite"/>
+												<xs:enumeration value="siliceous"/>
+												<xs:enumeration value="siliciclastic"/>
+												<xs:enumeration value="silt"/>
+												<xs:enumeration value="siltstone"/>
+												<xs:enumeration value="sinter"/>
+												<xs:enumeration value="skarn"/>
+												<xs:enumeration value="slate"/>
+												<xs:enumeration value="soapstone"/>
+												<xs:enumeration value="sovite"/>
+												<xs:enumeration value="spessartite"/>
+												<xs:enumeration value="spiculite"/>
+												<xs:enumeration value="spilite"/>
+												<xs:enumeration value="stratiform"/>
+												<xs:enumeration value="sulfate deposit"/>
+												<xs:enumeration value="syenite"/>
+												<xs:enumeration value="tachylyte"/>
+												<xs:enumeration value="taconite"/>
+												<xs:enumeration value="tactite"/>
+												<xs:enumeration value="tahitite"/>
+												<xs:enumeration value="talc"/>
+												<xs:enumeration value="tannbuschite"/>
+												<xs:enumeration value="tephrite"/>
+												<xs:enumeration value="teschenite"/>
+												<xs:enumeration value="theralite"/>
+												<xs:enumeration value="tholeiite"/>
+												<xs:enumeration value="till"/>
+												<xs:enumeration value="tinguaite"/>
+												<xs:enumeration value="tonalite"/>
+												<xs:enumeration value="tonstein"/>
+												<xs:enumeration value="tourmalinite"/>
+												<xs:enumeration value="trachyandesite"/>
+												<xs:enumeration value="trachybasalt"/>
+												<xs:enumeration value="trachydacite"/>
+												<xs:enumeration value="trachydolerite"/>
+												<xs:enumeration value="trachyte"/>
+												<xs:enumeration value="travertine"/>
+												<xs:enumeration value="tristanite"/>
+												<xs:enumeration value="troctolite"/>
+												<xs:enumeration value="trondhjemite"/>
+												<xs:enumeration value="tufa"/>
+												<xs:enumeration value="tuff"/>
+												<xs:enumeration value="turbidite"/>
+												<xs:enumeration value="vitrophere"/>
+												<xs:enumeration value="vitrophyre"/>
+												<xs:enumeration value="vogesite"/>
+												<xs:enumeration value="volcaniclastic"/>
+												<xs:enumeration value="volcaniclastics"/>
+												<xs:enumeration value="wacke"/>
+												<xs:enumeration value="water-laid tuff"/>
+												<xs:enumeration value="websterite"/>
+												<xs:enumeration value="wehrlite"/>
+												<xs:enumeration value="wyomingite"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Age"  minOccurs="0" maxOccurs="1" >
+								<xs:complexType>
+									<xs:attribute name="minage" type="xs:string" use="optional"/>
+									<xs:attribute name="maxage" type="xs:string" use="optional"/>
+									<xs:attribute name="exactage" type="xs:string" use="optional"/>
+									<xs:attribute name="geologicalage" use="optional">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value=""/>
+												<xs:enumeration value="cenozoic"/>
+												<xs:enumeration value="quaternary"/>
+												<xs:enumeration value="holocene"/>
+												<xs:enumeration value="pleistocene"/>
+												<xs:enumeration value="calabrian"/>
+												<xs:enumeration value="gelasian"/>
+												<xs:enumeration value="tertiary"/>
+												<xs:enumeration value="neogene"/>
+												<xs:enumeration value="pliocene"/>
+												<xs:enumeration value="piacenzian"/>
+												<xs:enumeration value="zanclean"/>
+												<xs:enumeration value="miocene"/>
+												<xs:enumeration value="messinian"/>
+												<xs:enumeration value="tortonian"/>
+												<xs:enumeration value="serravallian"/>
+												<xs:enumeration value="langhian"/>
+												<xs:enumeration value="burdigalian"/>
+												<xs:enumeration value="aquitanian"/>
+												<xs:enumeration value="oligocene"/>
+												<xs:enumeration value="chattian"/>
+												<xs:enumeration value="rupelian"/>
+												<xs:enumeration value="eocene"/>
+												<xs:enumeration value="priabonian"/>
+												<xs:enumeration value="bartonian"/>
+												<xs:enumeration value="lutetian"/>
+												<xs:enumeration value="ypresian"/>
+												<xs:enumeration value="paleocene"/>
+												<xs:enumeration value="thanetian"/>
+												<xs:enumeration value="selandian"/>
+												<xs:enumeration value="danian"/>
+												<xs:enumeration value="mesozoic"/>
+												<xs:enumeration value="cretaceous"/>
+												<xs:enumeration value="late cretaceous"/>
+												<xs:enumeration value="maastrichtian"/>
+												<xs:enumeration value="campanian"/>
+												<xs:enumeration value="santonian"/>
+												<xs:enumeration value="coniacian"/>
+												<xs:enumeration value="turonian"/>
+												<xs:enumeration value="cenomanian"/>
+												<xs:enumeration value="early cretacious"/>
+												<xs:enumeration value="albian"/>
+												<xs:enumeration value="aptian"/>
+												<xs:enumeration value="barremian"/>
+												<xs:enumeration value="hauterivian"/>
+												<xs:enumeration value="valanginian"/>
+												<xs:enumeration value="berriasian"/>
+												<xs:enumeration value="jurassic"/>
+												<xs:enumeration value="late jurassic"/>
+												<xs:enumeration value="tithonian"/>
+												<xs:enumeration value="kimmeridgian"/>
+												<xs:enumeration value="oxfordian"/>
+												<xs:enumeration value="middle jurassic"/>
+												<xs:enumeration value="callovian"/>
+												<xs:enumeration value="bathonian"/>
+												<xs:enumeration value="bajocian"/>
+												<xs:enumeration value="aalenian"/>
+												<xs:enumeration value="early jurassic"/>
+												<xs:enumeration value="toarcian"/>
+												<xs:enumeration value="pliensbachian"/>
+												<xs:enumeration value="sinemurian"/>
+												<xs:enumeration value="hettangian"/>
+												<xs:enumeration value="triassic"/>
+												<xs:enumeration value="late triassic"/>
+												<xs:enumeration value="rhaetian"/>
+												<xs:enumeration value="norian"/>
+												<xs:enumeration value="carnian"/>
+												<xs:enumeration value="middle triassic"/>
+												<xs:enumeration value="ladinian"/>
+												<xs:enumeration value="anisian"/>
+												<xs:enumeration value="early triassic"/>
+												<xs:enumeration value="olenekian"/>
+												<xs:enumeration value="induan"/>
+												<xs:enumeration value="paleozoic"/>
+												<xs:enumeration value="permian"/>
+												<xs:enumeration value="late permian"/>
+												<xs:enumeration value="changhsingian"/>
+												<xs:enumeration value="wuchiapingian"/>
+												<xs:enumeration value="midle permian"/>
+												<xs:enumeration value="capitanian"/>
+												<xs:enumeration value="wordian"/>
+												<xs:enumeration value="roadian"/>
+												<xs:enumeration value="early permian"/>
+												<xs:enumeration value="kungurian"/>
+												<xs:enumeration value="artinskian"/>
+												<xs:enumeration value="sakmarian"/>
+												<xs:enumeration value="asselian"/>
+												<xs:enumeration value="carboniferous"/>
+												<xs:enumeration value="pennsylvanian"/>
+												<xs:enumeration value="gzelian"/>
+												<xs:enumeration value="kasimovian"/>
+												<xs:enumeration value="moscovian"/>
+												<xs:enumeration value="bashkirian"/>
+												<xs:enumeration value="mississippian"/>
+												<xs:enumeration value="serpukhovian"/>
+												<xs:enumeration value="visean"/>
+												<xs:enumeration value="tournaisian"/>
+												<xs:enumeration value="devonian"/>
+												<xs:enumeration value="late devonian"/>
+												<xs:enumeration value="famennian"/>
+												<xs:enumeration value="frasnian"/>
+												<xs:enumeration value="middle devonian"/>
+												<xs:enumeration value="givetian"/>
+												<xs:enumeration value="eifelian"/>
+												<xs:enumeration value="early devonian"/>
+												<xs:enumeration value="emsian"/>
+												<xs:enumeration value="praghian"/>
+												<xs:enumeration value="lockhovian"/>
+												<xs:enumeration value="silurian"/>
+												<xs:enumeration value="late silurian"/>
+												<xs:enumeration value="pridolian"/>
+												<xs:enumeration value="ludfordian"/>
+												<xs:enumeration value="gorstian"/>
+												<xs:enumeration value="middle silurian"/>
+												<xs:enumeration value="homerian"/>
+												<xs:enumeration value="sheinwoodian"/>
+												<xs:enumeration value="early silurian"/>
+												<xs:enumeration value="telychian"/>
+												<xs:enumeration value="aeronian"/>
+												<xs:enumeration value="rhuddanian"/>
+												<xs:enumeration value="ordovician"/>
+												<xs:enumeration value="late ordovician"/>
+												<xs:enumeration value="hirnantian"/>
+												<xs:enumeration value="katian"/>
+												<xs:enumeration value="sandbian"/>
+												<xs:enumeration value="middle ordovician"/>
+												<xs:enumeration value="darriwilian"/>
+												<xs:enumeration value="dapingian"/>
+												<xs:enumeration value="early ordovician"/>
+												<xs:enumeration value="floian"/>
+												<xs:enumeration value="tremadocian"/>
+												<xs:enumeration value="cambrian"/>
+												<xs:enumeration value="furongian"/>
+												<xs:enumeration value="stage 10"/>
+												<xs:enumeration value="stage 9"/>
+												<xs:enumeration value="paibian"/>
+												<xs:enumeration value="series 3"/>
+												<xs:enumeration value="guzhangian"/>
+												<xs:enumeration value="drumian"/>
+												<xs:enumeration value="stage 5"/>
+												<xs:enumeration value="series 2"/>
+												<xs:enumeration value="stage 4"/>
+												<xs:enumeration value="stage 3"/>
+												<xs:enumeration value="terreveuvian"/>
+												<xs:enumeration value="stage 2"/>
+												<xs:enumeration value="fortunian"/>
+												<xs:enumeration value="precambrian"/>
+												<xs:enumeration value="proterozoic"/>
+												<xs:enumeration value="neoproterozoic"/>
+												<xs:enumeration value="ediacaran"/>
+												<xs:enumeration value="cryogenian"/>
+												<xs:enumeration value="tonian"/>
+												<xs:enumeration value="meseoproterozoic"/>
+												<xs:enumeration value="stenian"/>
+												<xs:enumeration value="ectasian"/>
+												<xs:enumeration value="calymmian"/>
+												<xs:enumeration value="paleoproterozoic"/>
+												<xs:enumeration value="statherian"/>
+												<xs:enumeration value="orosirian"/>
+												<xs:enumeration value="rhyacian"/>
+												<xs:enumeration value="siderian"/>
+												<xs:enumeration value="archean"/>
+												<xs:enumeration value="neoarchean"/>
+												<xs:enumeration value="mesoarchean"/>
+												<xs:enumeration value="paleoarchean"/>
+												<xs:enumeration value="eoarchean"/>
+												<xs:enumeration value="hadean"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Material"  minOccurs="0" maxOccurs="1" >
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value=""/>
+										<xs:enumeration value="bulk"/>
+										<xs:enumeration value="whole rock"/>
+										<xs:enumeration value="glass"/>
+										<xs:enumeration value="inclusion"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="OutputParameters">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="OutputType">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="count"/>
+										<xs:enumeration value="html"/>
+										<xs:enumeration value="csv"/>
+										<xs:enumeration value="xml"/>
+										<xs:enumeration value="staticmap"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="OutputLevel"  minOccurs="0" maxOccurs="1">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="sample"/>
+										<xs:enumeration value="method"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="OutputRows"  minOccurs="0" maxOccurs="1" >
+								<xs:complexType>
+									<xs:attribute name="start" type="xs:integer" use="optional"/>
+									<xs:attribute name="end" type="xs:integer" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="OutputItems"  minOccurs="0" maxOccurs="1" >
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="StandardItems"  minOccurs="0" maxOccurs="1">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="yes"/>
+													<xs:enumeration value="no"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Item"  minOccurs="0" maxOccurs="unbounded" >
+											<xs:complexType>
+												<xs:attribute name="name" use="required">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="sample_id"/>
+															<xs:enumeration value="source"/>
+															<xs:enumeration value="url"/>
+															<xs:enumeration value="title"/>
+															<xs:enumeration value="journal"/>
+															<xs:enumeration value="author"/>
+															<xs:enumeration value="longitude"/>
+															<xs:enumeration value="latitude"/>
+															<xs:enumeration value="method"/>
+															<xs:enumeration value="material"/>
+															<xs:enumeration value="type"/>
+															<xs:enumeration value="composition"/>
+															<xs:enumeration value="rock_name"/>
+															<xs:enumeration value="sio2"/>
+															<xs:enumeration value="tio2"/>
+															<xs:enumeration value="al2o3"/>
+															<xs:enumeration value="fe2o3"/>
+															<xs:enumeration value="fe2o3t"/>
+															<xs:enumeration value="feo"/>
+															<xs:enumeration value="feot"/>
+															<xs:enumeration value="mgo"/>
+															<xs:enumeration value="cao"/>
+															<xs:enumeration value="na2o"/>
+															<xs:enumeration value="k2o"/>
+															<xs:enumeration value="p2o5"/>
+															<xs:enumeration value="mno"/>
+															<xs:enumeration value="loi"/>
+															<xs:enumeration value="h2o_plus"/>
+															<xs:enumeration value="h2o_minus"/>
+															<xs:enumeration value="h2o"/>
+															<xs:enumeration value="h2o_total"/>
+															<xs:enumeration value="cr2o3"/>
+															<xs:enumeration value="la"/>
+															<xs:enumeration value="nio"/>
+															<xs:enumeration value="ce"/>
+															<xs:enumeration value="pr"/>
+															<xs:enumeration value="nd"/>
+															<xs:enumeration value="sm"/>
+															<xs:enumeration value="eu"/>
+															<xs:enumeration value="gd"/>
+															<xs:enumeration value="tb"/>
+															<xs:enumeration value="dy"/>
+															<xs:enumeration value="ho"/>
+															<xs:enumeration value="er"/>
+															<xs:enumeration value="tm"/>
+															<xs:enumeration value="yb"/>
+															<xs:enumeration value="lu"/>
+															<xs:enumeration value="li"/>
+															<xs:enumeration value="be"/>
+															<xs:enumeration value="b"/>
+															<xs:enumeration value="c"/>
+															<xs:enumeration value="co2"/>
+															<xs:enumeration value="f"/>
+															<xs:enumeration value="cl"/>
+															<xs:enumeration value="k"/>
+															<xs:enumeration value="ca"/>
+															<xs:enumeration value="mg"/>
+															<xs:enumeration value="sc"/>
+															<xs:enumeration value="ti"/>
+															<xs:enumeration value="v"/>
+															<xs:enumeration value="fe"/>
+															<xs:enumeration value="cr"/>
+															<xs:enumeration value="mn"/>
+															<xs:enumeration value="co"/>
+															<xs:enumeration value="ni"/>
+															<xs:enumeration value="cu"/>
+															<xs:enumeration value="zn"/>
+															<xs:enumeration value="ga"/>
+															<xs:enumeration value="zr"/>
+															<xs:enumeration value="ag"/>
+															<xs:enumeration value="al"/>
+															<xs:enumeration value="ar36_ar39"/>
+															<xs:enumeration value="ar37_ar39"/>
+															<xs:enumeration value="ar37_ar40"/>
+															<xs:enumeration value="ar38_ar36"/>
+															<xs:enumeration value="ar39_ar36"/>
+															<xs:enumeration value="ar40_ar36"/>
+															<xs:enumeration value="ar40_ar39"/>
+															<xs:enumeration value="ar40_k40"/>
+															<xs:enumeration value="arsenic"/>
+															<xs:enumeration value="au"/>
+															<xs:enumeration value="ba"/>
+															<xs:enumeration value="be10_be"/>
+															<xs:enumeration value="be10_be9"/>
+															<xs:enumeration value="bi"/>
+															<xs:enumeration value="cd"/>
+															<xs:enumeration value="cl36_cl"/>
+															<xs:enumeration value="cs"/>
+															<xs:enumeration value="d18o"/>
+															<xs:enumeration value="h"/>
+															<xs:enumeration value="he3_he4"/>
+															<xs:enumeration value="he4_he3"/>
+															<xs:enumeration value="he4_ne20"/>
+															<xs:enumeration value="hf"/>
+															<xs:enumeration value="hf176_hf177"/>
+															<xs:enumeration value="hg"/>
+															<xs:enumeration value="i"/>
+															<xs:enumeration value="ir"/>
+															<xs:enumeration value="k40_ar36"/>
+															<xs:enumeration value="kr78_kr84"/>
+															<xs:enumeration value="kr80_kr84"/>
+															<xs:enumeration value="kr82_kr84"/>
+															<xs:enumeration value="kr83_kr84"/>
+															<xs:enumeration value="kr86_kr84"/>
+															<xs:enumeration value="lu176_hf177"/>
+															<xs:enumeration value="mo"/>
+															<xs:enumeration value="nb"/>
+															<xs:enumeration value="nd143_nd144"/>
+															<xs:enumeration value="ne20_ne22"/>
+															<xs:enumeration value="ne21_ne20"/>
+															<xs:enumeration value="ne21_ne22"/>
+															<xs:enumeration value="ne22_ne20"/>
+															<xs:enumeration value="os"/>
+															<xs:enumeration value="os184_os188"/>
+															<xs:enumeration value="os186_os188"/>
+															<xs:enumeration value="os187_os186"/>
+															<xs:enumeration value="os187_os188"/>
+															<xs:enumeration value="p"/>
+															<xs:enumeration value="pb"/>
+															<xs:enumeration value="pb206_pb204"/>
+															<xs:enumeration value="pb206_pb207"/>
+															<xs:enumeration value="pb206_pb208"/>
+															<xs:enumeration value="pb207_pb204"/>
+															<xs:enumeration value="pb208_pb204"/>
+															<xs:enumeration value="pb208_pb206"/>
+															<xs:enumeration value="pb210_ra226"/>
+															<xs:enumeration value="pb210_u238"/>
+															<xs:enumeration value="pd"/>
+															<xs:enumeration value="po210_rn222"/>
+															<xs:enumeration value="po210_th230"/>
+															<xs:enumeration value="pt"/>
+															<xs:enumeration value="ra226_th228"/>
+															<xs:enumeration value="ra226_th230"/>
+															<xs:enumeration value="rb"/>
+															<xs:enumeration value="re"/>
+															<xs:enumeration value="s"/>
+															<xs:enumeration value="sb"/>
+															<xs:enumeration value="se"/>
+															<xs:enumeration value="sn"/>
+															<xs:enumeration value="sr"/>
+															<xs:enumeration value="sr87_sr86"/>
+															<xs:enumeration value="ta"/>
+															<xs:enumeration value="te"/>
+															<xs:enumeration value="th"/>
+															<xs:enumeration value="th230_ra232"/>
+															<xs:enumeration value="th230_u238"/>
+															<xs:enumeration value="th232_th230"/>
+															<xs:enumeration value="tl"/>
+															<xs:enumeration value="u"/>
+															<xs:enumeration value="u234_u238"/>
+															<xs:enumeration value="w"/>
+															<xs:enumeration value="xe124_xe130"/>
+															<xs:enumeration value="xe124_xe132"/>
+															<xs:enumeration value="xe126_xe130"/>
+															<xs:enumeration value="xe126_xe132"/>
+															<xs:enumeration value="xe128_xe130"/>
+															<xs:enumeration value="xe128_xe132"/>
+															<xs:enumeration value="xe129_xe130"/>
+															<xs:enumeration value="xe129_xe132"/>
+															<xs:enumeration value="xe130_xe132"/>
+															<xs:enumeration value="xe131_xe130"/>
+															<xs:enumeration value="xe131_xe132"/>
+															<xs:enumeration value="xe132_xe130"/>
+															<xs:enumeration value="xe134_xe130"/>
+															<xs:enumeration value="xe134_xe132"/>
+															<xs:enumeration value="xe136_xe130"/>
+															<xs:enumeration value="xe136_xe132"/>
+															<xs:enumeration value="y"/>
+															<xs:enumeration value="acmite"/>
+															<xs:enumeration value="albite"/>
+															<xs:enumeration value="anorthite"/>
+															<xs:enumeration value="apatite"/>
+															<xs:enumeration value="calcite"/>
+															<xs:enumeration value="calciumorthosilicate"/>
+															<xs:enumeration value="chromite"/>
+															<xs:enumeration value="corundum"/>
+															<xs:enumeration value="diopside"/>
+															<xs:enumeration value="enstatite"/>
+															<xs:enumeration value="fayalite"/>
+															<xs:enumeration value="ferrosilite"/>
+															<xs:enumeration value="fluorite"/>
+															<xs:enumeration value="forsterite"/>
+															<xs:enumeration value="halite"/>
+															<xs:enumeration value="hedenbergite"/>
+															<xs:enumeration value="hematite"/>
+															<xs:enumeration value="hypersthene"/>
+															<xs:enumeration value="ilmenite"/>
+															<xs:enumeration value="kaliophilite"/>
+															<xs:enumeration value="leucite"/>
+															<xs:enumeration value="magnetite"/>
+															<xs:enumeration value="nepheline"/>
+															<xs:enumeration value="olivine"/>
+															<xs:enumeration value="orthoclase"/>
+															<xs:enumeration value="perofskite"/>
+															<xs:enumeration value="potassiummetasilicate"/>
+															<xs:enumeration value="pyrite"/>
+															<xs:enumeration value="quartz"/>
+															<xs:enumeration value="rutile"/>
+															<xs:enumeration value="sodiumcarbonate"/>
+															<xs:enumeration value="sodiummetasilicate"/>
+															<xs:enumeration value="thenardite"/>
+															<xs:enumeration value="titanite"/>
+															<xs:enumeration value="wollastonite"/>
+															<xs:enumeration value="zircon"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+
+
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

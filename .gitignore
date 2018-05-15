@@ -1,0 +1,13 @@
+.DS_Store
+/.virtualenv
+.ipynb_checkpoints
+
+# Build artifacts
+__pycache__
+earthchem.egg-info
+build
+dist
+
+# Editor files 
+.idea
+*.sublime-workspace
