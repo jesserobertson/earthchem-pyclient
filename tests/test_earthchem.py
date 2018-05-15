@@ -16,5 +16,6 @@ class TestRESTClientQuery(unittest.TestCase):
             self.assertEqual(self.query['author'], auth)
             self.assertEqual(self.query.url, 'http://ecp.iedadata.org/restsearchservice?outputtype=json&author={}'.format(auth))
 
+
 if __name__ == '__main__':
     unittest.main()
