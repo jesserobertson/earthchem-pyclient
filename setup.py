@@ -19,7 +19,7 @@ setup(
     license='MIT',
     author='Jess Robertson',
     author_email='jesse.robertson@csiro.au',
-    url='https://github.com/jesserobertson/earthchem.git',
+    url='https://github.com/jesserobertson/earthchem-pyclient.git',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
