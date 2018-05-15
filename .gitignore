@@ -2,6 +2,11 @@
 /.virtualenv
 .ipynb_checkpoints
 
+# Test artifacts
+.pytest_cache
+htmlcov
+.coverage
+
 # Build artifacts
 __pycache__
 earthchem.egg-info

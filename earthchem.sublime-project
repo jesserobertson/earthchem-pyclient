@@ -8,7 +8,9 @@
                 "*.egg-info",
                 ".eggs",
                 "__pycache__",
-                ".ipynb_checkpoints"
+                ".ipynb_checkpoints",
+                ".pytest_cache",
+                "htmlcov"
             ],
             "file_exclude_patterns": [
                 "*.so",
