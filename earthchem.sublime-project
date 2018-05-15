@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+            "path": ".",
+            "folder_exclude_patterns": [
+                "build", 
+                "*.egg-info",
+                ".eggs",
+                "__pycache__",
+                ".ipynb_checkpoints"
+            ],
+            "file_exclude_patterns": [
+                "*.so",
+                "ext/*.c"
+            ]
+        }
+	]
+}
