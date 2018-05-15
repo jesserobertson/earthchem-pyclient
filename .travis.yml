@@ -3,13 +3,19 @@ python:
   - "3.5"
   - "3.6"
 
+env:
+  - COVERALLS_REPO_TOKEN=kQuX1Zr77YwYiNEmRuPUqWPPfjmNTh593
+
 install:
   # Install test requirements seperately
-  - pip install -q pytest pytest-runner pytest-cov coverage python-coveralls
+  - pip install -q pytest pytest-runner pytest-cov coverage coveralls
   - python setup.py install
 
 script:
   - python setup.py test
 
 after_success:
-  - COVERALLS_REPO_TOKEN=kQuX1Zr77YwYiNEmRuPUqWPPfjmNTh593 coveralls
+  # We only want to run coveralls for Python 3.6 so we don't double up...
+  - if [[$ENV == python=3.6* ]]; then
+      coveralls;
+    fi
