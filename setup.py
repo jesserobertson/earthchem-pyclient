@@ -71,7 +71,9 @@ setup(
     # Dependencies
     install_requires=get_conda_dependencies(),
     setup_requires=[
-        'versioneer'
+        'versioneer',
+        'nbstripout',
+        'nbdime'
     ],
     tests_require=[
         'pytest',
