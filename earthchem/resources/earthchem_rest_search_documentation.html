@@ -1,0 +1,350 @@
+	<html><head><title>EarthChem REST Server Documentation</title>
+	<style type="text/css">
+		body    { font-family: arial; color: #000000; background-color: #ffffff; margin: 0px 0px 0px 0px; }
+		p       { font-family: arial; color: #000000; margin-top: 0px; margin-bottom: 12px; }
+		pre { background-color: silver; padding: 5px; font-family: Courier New; font-size: x-small; color: #000000;}
+		ul      { margin-top: 10px; margin-left: 20px; }
+		li      { list-style-type: none; margin-top: 10px; color: #000000; }
+		.content{
+		margin-left: 0px; padding-bottom: 2em; }
+		.nav {
+		padding-top: 10px; padding-bottom: 10px; padding-left: 15px; font-size: .70em;
+		margin-top: 10px; margin-left: 0px; color: #000000;
+		background-color: #ff6600; width: 232px; margin-left: 5px; margin-top: 5px; }
+		.title {
+		font-family: arial; font-size: 26px; color: #ffffff;
+		background-color: #333333; width: 105%; margin-left: 0px;
+		padding-top: 10px; padding-bottom: 10px; padding-left: 15px;}
+		.hidden {
+		position: absolute; visibility: hidden; z-index: 200; left: 257px; top: 56px;
+		font-family: arial; overflow: hidden; width: 600;
+		padding: 20px; font-size: 11px; background-color: #999999;
+		layer-background-color:#FFFFFF; }
+		a,a:active  { color: #ff6600; font-weight: bold; }
+		a:visited   { color: #ff6600; font-weight: bold; }
+		a:hover     { color: #ff6600; font-weight: bold; }
+		.mydoc{
+		width:600px;
+		margin-left:20px;
+		margin-top:20px;
+		}
+		.xmldiv{
+		padding:5px;
+		margin-left:20px;
+		margin-top:20px;
+		font-size:.8em;
+		background-color:#EEEEEE;
+		border:1px #CCCCCC dashed;
+		}
+		.itemtitle{
+		font-size:1em;
+		font-weight:bold;
+		margin-left:10px;
+		margin-bottom:15px;
+		}
+		.itemdesc{
+		margin-left:10px;
+		padding:5px;
+		background-color:#EEEEEE;
+		border:1px #CCCCCC dashed;
+		font-size:.9em;
+		font-weight:normal;
+		}
+	</style>
+
+	</head>
+	<body>
+	<div class=content>
+		
+		<div class=title>EarthChem REST Server Documentation</div>
+
+		<div class="mydoc">
+			
+			The EarthChem REST Search Service accepts GET string variables which determine search criteria.<br><br>
+
+			<br>
+			
+			The target URL for the EarthChem REST Search Service is:<br><br>
+			
+			<div style="padding-left:20px;color:#ff6600;">
+			http://ecp.iedadata.org/restsearchservice<br>
+			</div>
+			
+			<br>
+			
+			<div style="font-weight:bold;font-size:1.5em;">Usage of GET Variables:</div><hr>
+			
+			<br>
+			
+			<div class="itemtitle">author
+				<div class="itemdesc">
+					Author of reference citation.
+				</div>
+			</div>
+
+			<div class="itemtitle">title
+				<div class="itemdesc">
+					Title of citation journal article.
+				</div>
+			</div>
+
+			<div class="itemtitle">journal
+				<div class="itemdesc">
+					Name of citation journal.
+				</div>
+			</div>
+
+			<div class="itemtitle">doi
+				<div class="itemdesc">
+					DOI of citation article. (Note: not all ciations have a DOI assigned.)
+				</div>
+			</div>
+
+			<div class="itemtitle">minpubyear
+				<div class="itemdesc">
+					Minimum publication year of citation article. If minpubyear is provided, maxpubyear
+					must also be provided.
+				</div>
+			</div>
+
+			<div class="itemtitle">maxpubyear
+				<div class="itemdesc">
+					Maximum publication year of citation article. If maxpubyear is provided, minpubyear
+					must also be provided.
+				</div>
+			</div>
+
+			<div class="itemtitle">exactpubyear
+				<div class="itemdesc">
+					Exact publication year of citation article.
+				</div>
+			</div>
+
+			<div class="itemtitle">keyword
+				<div class="itemdesc">
+					The keyword query searches a generic descriptor field contained in the EarthChem schema. This is a free-text field that allows the supported datasets to provide a descriptor of their own choosing. Most often, this field contains a short sample description describing the sample's location and composition. The keyword search also includes rock name in the queried results. 
+				</div>
+			</div>
+
+			<div class="itemtitle">sampleid
+				<div class="itemdesc">
+					Sample Identifier provided by source database.
+				</div>
+			</div>
+
+			<div class="itemtitle">polygon
+				<div class="itemdesc">
+					This field allows a polygon to be provided in order to constrain results geographically.
+					The polygon must be provided in a closed format of comma-delimited coordinate pairs.<br>
+					Example:<br>
+					-109.35 36.7875,-105.525 40.725,-104.5125 37.0125,-107.1 35.4375,-109.35 36.7875
+				</div>
+			</div>
+
+			<div class="itemtitle">north
+				<div class="itemdesc">
+					Northern bound of a geographic envelope used to constrain results geographically.<br>
+					If a northern bound is provided, an east, south, and west value must also be provided.
+				</div>
+			</div>
+
+			<div class="itemtitle">east
+				<div class="itemdesc">
+					Eastern bound of a geographic envelope used to constrain results geographically.<br>
+					If an eastern bound is provided, a south, west, and north value must also be provided.
+				</div>
+			</div>
+
+			<div class="itemtitle">south
+				<div class="itemdesc">
+					Southern bound of a geographic envelope used to constrain results geographically.<br>
+					If a southern bound is provided, a west, north, and east value must also be provided.
+				</div>
+			</div>
+
+			<div class="itemtitle">west
+				<div class="itemdesc">
+					Western bound of a geographic envelope used to constrain results geographically.<br>
+					If a western bound is provided, a north, east, and south value must also be provided.
+				</div>
+			</div>
+
+
+
+
+			<div class="itemtitle">level1
+				<div class="itemdesc">
+					Material of the sample. This is an enumerated value. Possible values can be found in the EarthChem SOAP search <a href="http://ecp.iedadata.org/soap_search_schema.xsd">schema</a>.
+				</div>
+			</div>
+
+			<div class="itemtitle">level2
+				<div class="itemdesc">
+					Rock type of the sample. This is an enumerated value. Possible values can be found in the EarthChem SOAP search <a href="http://ecp.iedadata.org/soap_search_schema.xsd">schema</a>.
+				</div>
+			</div>
+
+			<div class="itemtitle">level3
+				<div class="itemdesc">
+					Composition of the sample. This is an enumerated value. Possible values can be found in the EarthChem SOAP search <a href="http://ecp.iedadata.org/soap_search_schema.xsd">schema</a>.
+				</div>
+			</div>
+
+			<div class="itemtitle">level4
+				<div class="itemdesc">
+					Rock name provided by source database for the sample. This is an enumerated value. Possible values can be found in the EarthChem SOAP search <a href="http://ecp.iedadata.org/soap_search_schema.xsd">schema</a>.
+				</div>
+			</div>
+
+			<div class="itemtitle">minage
+				<div class="itemdesc">
+					Minimum age of the sample. (Ma)
+				</div>
+			</div>
+
+			<div class="itemtitle">maxage
+				<div class="itemdesc">
+					Maximum age of the sample. (Ma)
+				</div>
+			</div>
+
+			<div class="itemtitle">exactage
+				<div class="itemdesc">
+					Exact age of the sample. (Ma)
+				</div>
+			</div>
+
+			<div class="itemtitle">geologicalage
+				<div class="itemdesc">
+					Geological age of the sample. This is an enumerated value. Possible values can be found in the EarthChem SOAP search <a href="http://ecp.iedadata.org/soap_search_schema.xsd">schema</a>.
+				</div>
+			</div>
+
+			<div class="itemtitle">material
+				<div class="itemdesc">
+					Material composition of the sample. This is an enumerated value. Possible values can be found in the EarthChem SOAP search <a href="http://ecp.iedadata.org/soap_search_schema.xsd">schema</a>.
+				</div>
+			</div>
+
+			<div class="itemtitle">searchtype
+				<div class="itemdesc">
+					Desired type of search query. Possible values are "count", "rowdata", and "distinctitems"<br><br>
+					count: returns count of results from query.<br>
+					rowdata: returns table of results from query in the format of "outputtype" below.
+					distinctitems: returns list of distinct items found within current query in the format of "outputtype" below.
+				</div>
+			</div>
+
+			<div class="itemtitle">outputtype
+				<div class="itemdesc">
+					Desired output type from query. Possible values are "html", "csv", "xml", "json", "jsonp" and "staticmap".<br><br>
+					html: returns HTML table of results from query.<br>
+					csv: returns CSV table of results from query.<br>
+					xml: returns XML document of results from query.<br>
+					json: returns JSON document of results from query.<br>
+					jsonp: returns JSON string wrapped in a Javascript function call defined by "jsonpfunction" below:<br>
+					staticmap: returns map image of results from query.<br><br>
+					Please note: When a searchtype of "count" is set, "html", "csv", and "staticmap" will return a plaintext integer count of samples from the query.
+				</div>
+			</div>
+
+			<div class="itemtitle">jsonfunction
+				<div class="itemdesc">
+					Desired Javascript function to be wrapped around JSON in the event that "outputtype" is set to "jsonp"
+				</div>
+			</div>
+
+			<div class="itemtitle">outputlevel
+				<div class="itemdesc">
+					Desired level of output from query. Possible values are "sample" and "method".<br><br>
+					sample: returns one row per sample. If a sample has more than one material associated with it, 
+					a row will be returned for each material.<br><br>
+					method: returns one row per method used to determine chemical values.
+				</div>
+			</div>
+
+			<div class="itemtitle">startrow/endrow
+				<div class="itemdesc">
+					These values determine which rows of query will be displayed. The first row is always 0 and the
+					last row is always the count value minus 1 (n-1). <br><br>
+					Important: A maximum of 50 rows are allowed to be displayed at a time. Any start/end values
+					that exceed a difference of 50 will result in the start value and start value + 50 values being
+					displayed. If start/end values are not provided, rows 0-49 will be displayed.
+				</div>
+			</div>
+
+			<div class="itemtitle">standarditems
+				<div class="itemdesc">
+					This element has a value of yes/no and determines if the standard chemical values should be
+					displayed in the html,csv, or xml outputs. Using the standard items allows a consistent output from query to query for use in
+					tables.<br><br>
+					Standard items are:<br>
+					SiO<SUB>2</SUB>, TiO<SUB>2</SUB>, Al<SUB>2</SUB>O<SUB>3</SUB>, Cr<SUB>2</SUB>O<SUB>3</SUB>, Fe<SUB>2</SUB>O<SUB>3</SUB>, Fe<SUB>2</SUB>O<SUB>3</SUB> Total, FeO, FeO Total, NiO, MnO, MgO, CaO, Na<SUB>2</SUB>O, K<SUB>2</SUB>O, P<SUB>2</SUB>O<SUB>5</SUB>, LOI, H<SUB>2</SUB>O, H<SUB>2</SUB>O-, H<SUB>2</SUB>O+, S, Co<SUB>2</SUB>, F, Cl, Ag, As, Au, B, Ba, Be, Bi, Cd, Co, Cr, Cs, Cu, Ga, Hf, Hg, I, Ir, K, Li, Mn, Mo, Nb, Ni, Os, Pb, Pd, Pt, Rb, Re, S, Sb, Sc, Se, Sn, Sr, Ta, Te, Th, Ti, Tl, U, V, W, Y, Zn, Zr, La, Ce, Pr, Nd, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu, <SUP>87</SUP>Sr / <SUP>86</SUP>Sr, <SUP>143</SUP>Nd / <SUP>144</SUP>Nd, <SUP>206</SUP>Pb / <SUP>204</SUP>Pb, <SUP>207</SUP>Pb / <SUP>204</SUP>Pb, <SUP>208</SUP>Pb / <SUP>204</SUP>Pb, <SUP>176</SUP>Hf / <SUP>177</SUP>Hf, <SUP>176</SUP>Lu / <SUP>177</SUP>Hf, <SUP>187</SUP>Os / <SUP>188</SUP>Os, <SUP>10</SUP>Be / Be, <SUP>3</SUP>He / <SUP>4</SUP>He,
+					<sup>87</sup>Rb/<sup>86</sup>Sr,
+					<sup>147</sup>Sm/<sup>144</sup>Nd,
+					<sup>238</sup>U/<sup>206</sup>Pb,
+					<sup>235</sup>U/<sup>207</sup>Pb,
+					<sup>232</sup>Th/<sup>208</sup>Pb
+				</div>
+			</div>
+
+			<div class="itemtitle">outputitems
+				<div class="itemdesc">
+					Comma-separated list of items to be displayed. Items will be shown in html,csv, and xml output in order provided in the
+					GET variable. This is an enumerated value. Possible values can be found in the EarthChem SOAP search <a href="http://ecp.iedadata.org/soap_search_schema.xsd">schema</a>. 
+				</div>
+			</div>
+
+			<div class="itemtitle">showcolumnnames
+				<div class="itemdesc">
+					Control display of column names in CSV and HTML output modes. Possible values are yes and no. Default value is no.
+				</div>
+			</div>
+
+
+			<div class="itemtitle">Example 1:
+				<div class="itemdesc">
+					Show method level html output for samples matching author "smith". Include
+					Sample ID, Source, Longitude, and Latitude.<br><br>
+					<div style="font-weight:bold;">HTTP Link:</div><br>
+						<div style="font-size:.8em;">
+						<a href="http://ecp.iedadata.org/restsearchservice?author=smith&searchtype=rowdata&outputtype=html&showcolumnnames=yes&outputitems=sample_id,source,longitude,latitude" target="_blank">http://ecp.iedadata.org/restsearchservice?author=smith&searchtype=rowdata&outputtype=html&showcolumnnames=yes&outputitems=sample_id,source,longitude,latitude</a>
+						</div>
+				</div>
+			</div>
+
+			<div class="itemtitle">Example 2:
+				<div class="itemdesc">
+					Show method level xml output for samples located in western Kansas. Include Sample ID
+					and standard output items.<br><br>
+					<div style="font-weight:bold;">HTTP Link:</div><br>
+						<div style="font-size:.8em;">
+						<a href="http://ecp.iedadata.org/restsearchservice?polygon=-101.953125 39.9375,-99.95625 39.9375,-100.603125 38.53125,-99.815625 36.95625,-101.98125 36.984375,-101.953125 39.9375&searchtype=rowdata&outputtype=xml&outputitems=sampleid&standarditems=yes" target="_blank">http://ecp.iedadata.org/restsearchservice?polygon=-101.953125 39.9375,-99.95625 39.9375,-100.603125 38.53125, -99.815625 36.95625,-101.98125 36.984375,-101.953125 39.9375&searchtype=rowdata&outputtype=xml&outputitems=sampleid&standarditems=yes</a>
+						</div>
+				</div>
+			</div>
+
+
+			<div class="itemtitle">Example 3:
+				<div class="itemdesc">
+					Show static map of samples between 55 and 56 Ma in the western United States.<br><br>
+					<div style="font-weight:bold;">HTTP Link:</div><br>
+						<div style="font-size:.8em;">
+							<a href="http://ecp.iedadata.org/restsearchservice?north=49&east=-100&south=23&west=-124&minage=55&maxage=56&outputtype=staticmap" target="_blank">http://ecp.iedadata.org/restsearchservice?north=49&east=-100&south=23&west=-124&minage=55&maxage=56&outputtype=staticmap</a>
+						</div>
+				</div>
+			</div>
+
+			<div class="itemtitle">Example 4:
+				<div class="itemdesc">
+					Retrieve a JSONP document of samples from Kansas. The Javascript function is "myJSFunction"<br><br>
+					<div style="font-weight:bold;">HTTP Link:</div><br>
+						<div style="font-size:.8em;">
+							<a href="http://ecp.iedadata.org/restsearchservice.php?outputtype=jsonp&searchtype=rowdata&jsonpfunction=myJSFunction&polygon=-102.0515625%2039.968200778963,-95.3859375%2040.024450778963,-94.865625%2039.729138278963,-95.0765625%2039.518200778963,-94.5984375%2039.110388278963,-94.5984375%2036.958825778963,-102.0375%2036.986950778963,-102.0515625%2039.968200778963" target="_blank">http://ecp.iedadata.org/restsearchservice.php?outputtype=jsonp&searchtype=rowdata&jsonpfunction=myJSFunction&polygon=-102.0515625%2039.968200778963, -95.3859375%2040.024450778963, -94.865625%2039.729138278963, -95.0765625%2039.518200778963, -94.5984375%2039.110388278963, -94.5984375%2036.958825778963, -102.0375%2036.986950778963, -102.0515625%2039.968200778963</a>
+						</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div></body></html>
