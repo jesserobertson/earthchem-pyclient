@@ -35,14 +35,15 @@ setup(
     install_requires=[
         'geopandas',
         'requests',
-        'cython',
-        'cartopy'
+        'cython'
     ],
-    setup_requires=[
-        'versioneer',
-        'nbstripout',
-        'nbdime'
-    ],
+    extras_require={
+        'dev': [
+            'versioneer',
+            'nbstripout',
+            'nbdime'
+        ]
+    },
     tests_require=[
         'pytest',
         'pytest-runner',
