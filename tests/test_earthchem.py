@@ -1,5 +1,4 @@
 from earthchem.query import RESTClientQuery
-from matplotlib import pyplot
 
 import unittest
 
@@ -44,20 +43,6 @@ class TestRESTClientQuery(unittest.TestCase):
         self.query['searchtype'] = None
         with self.assertRaises(KeyError):
             _ = self.query['searchtype']
-
-
-class IntegrationTestRESTClientQuery(unittest.TestCase):
-
-    "Some integration tests to check that things are working"
-
-    def setUp(self):
-        self.query = RESTClientQuery(author='barnes')
-
-    def test_plot(self):
-        "Check that plotting works without any issues"
-        self.query.dataframe().plot('longitude', 'latitude', 'scatter')
-        pyplot.close()
-
 
 if __name__ == '__main__':
     unittest.main()
