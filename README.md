@@ -31,10 +31,16 @@ That's a lot of samples. Can we see the compositions of the first 50 say?
 >>> df.head()
 ```
 
-[!Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
+![Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
 
 
+Great, so now I can make some little plots right?
 
+```python
+>>> df.plot('al2o3', 'sio2', 'scatter')
+```
+
+![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/plot_output.png)
 
 ### Great, I'm sold. How do I get it?
 
