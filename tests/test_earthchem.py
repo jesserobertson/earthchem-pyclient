@@ -16,6 +16,18 @@ class TestRESTClientQuery(unittest.TestCase):
             self.assertEqual(self.query['author'], auth)
             self.assertEqual(self.query.url, 'http://ecp.iedadata.org/restsearchservice?outputtype=json&author={}'.format(auth))
 
+    def test_author_count(self):
+        "Check that we handle author counts when things are 0"
+        self.query['author'] = 'aqwefgaskl'
+        self.assertEqual(self.query.count(), 0)
+        self.assertEqual(self.query.dataframe(), None)
+
+    def test_author_count_with_data(self):
+        "Check things work with an author count that returns data"
+        self.query['author'] = 'barnes'
+        self.assertTrue(self.query.count() > 5)
+        self.assertTrue(self.query.dataframe() is not None)
+
 
 if __name__ == '__main__':
     unittest.main()

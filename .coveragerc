@@ -1,0 +1,8 @@
+[run]
+omit = 
+    # Omit test and resource files
+    tests/*
+    **/resources
+
+    # Ignore _version.py
+    */_version.py
