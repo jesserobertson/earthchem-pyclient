@@ -13,6 +13,30 @@ ELEMENTS_IN_SCHEMA = (
     'Material'
 )
 
+TEST_EXAMPLES = {
+    'Reference': {
+        'works': [
+            {'author': 'barnes', 'journal': 'nature'},
+            {'author': 'barnes', 'journal': 'nature', 'doi': 'foo'},
+            {'author': 'klump'},
+            {'exactpubyear': '2005'},
+            {'minpubyear': '2000', 'maxpubyear': '2017'}
+        ],
+        'fails': [
+            (ValueError, ['foo', 'bar']),
+            (ValueError, 'a string'),
+            (KeyError, {'a':'dict', 'with': 'random', 'keys': 'fails'})
+        ]
+    },
+    # 'SampleType',
+    # 'SampleID',
+    # 'Keyword',
+    # 'CruiseID',
+    # 'Location',
+    # 'Age',
+    # 'Material'
+}
+
 class TestValidators(unittest.TestCase):
 
     "Test validators"
@@ -29,21 +53,18 @@ class TestValidators(unittest.TestCase):
         "Elements should create their own validators"
         for element in ELEMENTS_IN_SCHEMA:
             elem = ElementValidator(element)
-            self.assertTrue(elem.validator is not None)
+            self.assertTrue(elem._validator is not None)
             del elem
 
     def test_validator_creation_2(self):
         "Check that complex validators work ok"
-        elem = ElementValidator('Reference')
-        validator = complex_validator(elem.root)
-
-        # Check validator
-        works = {'author': 'barnes', 'journal': 'nature'}
-        self.assertTrue(validator(works))
-        b0rks = works.copy()
-        b0rks['foo'] = 'bar'
-        with self.assertRaises(KeyError):
-            validator(b0rks)
+        for name, cases in TEST_EXAMPLES.items():
+            v = ElementValidator(name)
+            for case in cases['works']:
+                self.assertTrue(v.validate(case))
+            for errtype, case in cases['fails']:
+                with self.assertRaises(errtype):
+                    v.validate(case)
 
 
 if __name__ == '__main__':

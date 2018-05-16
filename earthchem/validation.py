@@ -101,7 +101,7 @@ def string_validator(elem):
     name = elem.get('name')
     def _validator(obj):
         if type(obj) != str:
-            raise ValueError('I expected a string for parameter {} - got a {} instead ({})'.format(elem, type(obj), obj))
+            raise ValueError('I expected a string for parameter {} - got a {} instead ({})'.format(name, type(obj), obj))
         return True
     
     # Return the validation function
@@ -140,7 +140,7 @@ class ElementValidator(dict):
         query = "//xs:element[@name='{}']".format(self.xmlname)
         self.root = self.xpath(query)[0]
         self.dtype = get_type(self.root)
-        self.validator = VALIDATOR_MAPPING[self.dtype](self.root)
+        self._validator = VALIDATOR_MAPPING[self.dtype](self.root)
     
     @property
     def tree(self):
@@ -159,18 +159,10 @@ class ElementValidator(dict):
         "Run an xpath query against our schema"
         return self.tree.xpath(query, namespaces=_NS)
 
-    def validate(self, dict_like):
-        """ Validate a dict-like object against the schema
+    def validate(self, obj):
+        """ Validate a python object against the schema
 
             Parameters:
-                dict_like - the object to validate 
+                obj - the object to validate 
         """
-        for key, value in dict_like.items():
-            try:
-                if not self.validators[key](value):
-                    raise ValueError
-                else:
-                    return True
-            except KeyError:
-                raise KeyError('Invalid key {}, valid keys are {}'.format(key, self.validators.keys()))
-            print(self.validators[key](value))
+        return self._validator(obj)
