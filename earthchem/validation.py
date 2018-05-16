@@ -49,27 +49,21 @@ def get_type(elem):
     # If we're here we will just assume that the type is 'string'
     return TYPE_MAPPING['xs:string']
 
+# Mapping simple types to our validator factories
+# Note we have to actually define these below once we've defined the functions
+# as part of this mapping
+VALIDATOR_MAPPING = {}
+
 def complex_validator(elem):
     """ Construct a validator for an xs:complexType
     """
     # Pull together keys and validators for each key
-    validators = {}
-    for attr in elem.xpath('./xs:complexType/xs:attribute', namespaces=_NS):
-        # Decide what type of validator we need based on attribute type
-        attrtype = get_type(attr)
-        attrname = attr.get('name')
-        if attrtype == 'string':
-            # We accept anything for strings
-            validators[attrname] = string_validator(attr)
-            
-        elif attrtype == 'simple':
-            # For simple types there's a restriction on values
-            print('constructing simple validator')
-            validators[attrname] = construct_simple_validator(attr)
-            
-        elif attrtype == 'complex':
-            validators[attrname] = construct_complex_validator(attr)
-        
+    attributes = elem.xpath('./xs:complexType/xs:attribute', namespaces=_NS)
+    validators = {
+        attr.get('name'): VALIDATOR_MAPPING[get_type(attr)](attr)
+        for attr in attributes
+    }
+
     # Construct a validator function
     name = elem.get('name')
     def _validator(obj):
@@ -82,6 +76,7 @@ def complex_validator(elem):
                 vd = validators[key]
             except KeyError:
                 raise KeyError('Unknown key {} - valid values are {}'.format(key, list(validators.keys())))
+        return True
     
     return _validator
 
@@ -94,6 +89,7 @@ def simple_validator(elem):
     def _validator(obj):
         if type(obj) != dict:
             raise ValueError('I expected a str for parameter {} - got a {} instead ({})'.format(name, type(obj), obj))
+        return True
 
     # Return the validation function
     return _validator
@@ -111,24 +107,16 @@ def string_validator(elem):
     # Return the validation function
     return _validator
 
+# Mapping simple types to our validator factories
 VALIDATOR_MAPPING = {
     'string': string_validator,
     'complex': complex_validator,
     'simple': simple_validator
 }
 
-def validate(dict_like, validators):
-    for key, value in dict_like.items():
-        try:
-            if not validators[key](value):
-                raise ValueError
-        except KeyError:
-            print('Invalid key {}, valid keys are {}'.format(key, validators.keys()))
-        print(validators[key](value))
-
-class QueryElement(dict):
+class ElementValidator(dict):
     
-    """ Class to generate a query element for each 
+    """ Class to generate a query validator for each 
         part of the query
         
         This generates fairly kludgy validators against 
@@ -140,7 +128,7 @@ class QueryElement(dict):
                 Should be the same as in the XML soap
                 search schema.
     """
-    
+
     def __init__(self, name):
         self.name = name.lower()
         self.xmlname = name
@@ -152,13 +140,7 @@ class QueryElement(dict):
         query = "//xs:element[@name='{}']".format(self.xmlname)
         self.root = self.xpath(query)[0]
         self.dtype = get_type(self.root)
-        if self.dtype == 'complex':
-            print('getting valid keys')
-            print('getting valid values')
-        elif self.dtype == 'simple':
-            print('getting valid values')
-        else:
-            print('Query is just a string')
+        self.validator = VALIDATOR_MAPPING[self.dtype](self.root)
     
     @property
     def tree(self):
@@ -176,3 +158,19 @@ class QueryElement(dict):
     def xpath(self, query):
         "Run an xpath query against our schema"
         return self.tree.xpath(query, namespaces=_NS)
+
+    def validate(self, dict_like):
+        """ Validate a dict-like object against the schema
+
+            Parameters:
+                dict_like - the object to validate 
+        """
+        for key, value in dict_like.items():
+            try:
+                if not self.validators[key](value):
+                    raise ValueError
+                else:
+                    return True
+            except KeyError:
+                raise KeyError('Invalid key {}, valid keys are {}'.format(key, self.validators.keys()))
+            print(self.validators[key](value))
