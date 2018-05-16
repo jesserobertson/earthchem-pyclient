@@ -46,8 +46,8 @@ def get_type(elem):
         except KeyError:
             continue
     
-    # If we're here we dont' know what to do
-    raise ValueError("Can't parse type for element named {}".format(elem.get('name')))
+    # If we're here we will just assume that the type is 'string'
+    return TYPE_MAPPING['xs:string']
 
 def complex_validator(elem):
     """ Construct a validator for an xs:complexType
@@ -57,17 +57,18 @@ def complex_validator(elem):
     for attr in elem.xpath('./xs:complexType/xs:attribute', namespaces=_NS):
         # Decide what type of validator we need based on attribute type
         attrtype = get_type(attr)
+        attrname = attr.get('name')
         if attrtype == 'string':
             # We accept anything for strings
-            validators[name] = string_validator(attr)
+            validators[attrname] = string_validator(attr)
             
         elif attrtype == 'simple':
             # For simple types there's a restriction on values
             print('constructing simple validator')
-            validators[attr.get('name')] = construct_simple_validator(attr)
+            validators[attrname] = construct_simple_validator(attr)
             
         elif attrtype == 'complex':
-            validators[attr.get('name')] = construct_complex_validator(attr)
+            validators[attrname] = construct_complex_validator(attr)
         
     # Construct a validator function
     name = elem.get('name')
