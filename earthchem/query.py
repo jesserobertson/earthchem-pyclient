@@ -6,8 +6,10 @@
 """
 
 from .documentation import get_documentation
+from .pagination import make_pages
 
 import requests
+import tqdm
 import pandas
 
 from io import StringIO
@@ -58,8 +60,10 @@ class Query(dict):
                 key - the query key to set
                 value - the value to set for that search.
         """
-        # Check that items are ok to query
-        if key not in self.docdict.keys():
+        # Check that items are ok to query - we escape startrow and endrow since
+        # they are special
+        allowed = list(self.docdict.keys()) + ['startrow', 'endrow']
+        if key not in allowed:
             raise KeyError('Unknown key {0}'.format(key))
 
         if value is None:
@@ -83,12 +87,14 @@ class Query(dict):
         else:
             raise IOError("Couldn't get data from network") 
 
-    def dataframe(self, standarditems=True, drop_empty=True):
+    def dataframe(self, max_rows=None, standarditems=True, drop_empty=True):
         """ Get the actual data in a dataframe
 
             Note that this doesn't do pagination yet...
 
             Parameters:
+                max_rows - the maximum number of rows to get. If None, 
+                    defaults to Query.count() (i.e. give me everything)
                 standarditems - if True, returns the Earthchem 
                     standard items in the table
                 drop_empty - if True, drops columns for which there 
@@ -97,37 +103,56 @@ class Query(dict):
         # Add the proper search type keys to the query
         self['searchtype'] = 'rowdata'
         self['standarditems'] = 'yes' if standarditems else 'no'
-        resp = requests.get(self.url)
-        self['searchtype'], self['standarditems'] = None, None
+
+        # Get the list of pages we're going to use, use to set up tqdm and query
+        pages = make_pages(max_rows or self.count())[:4]
+        tqdm_kwargs = {
+            'desc': 'Downloading pages',
+            'total': len(pages)
+        }
+
+        # Accumulate pages as we go
+        accumulator = None
+        for page in tqdm.tqdm(pages, **tqdm_kwargs):
+            self['startrow'], self['endrow'] = page
+            resp = requests.get(self.url)
+            if resp.ok:
+                try:
+                    # Create a new dataframe to add to the old one
+                    df = pandas.read_json(StringIO(resp.text))
+                    if accumulator is None:
+                        accumulator = df
+                    else:
+                        accumulator = pandas.concat([accumulator, df])
+                except ValueError:
+                    if resp.text == 'no results found':
+                        print("Didn't find any records, continuing")
+                        continue
+                    else:
+                        raise IOError("Couldn't parse data in response")
+        
+        # We'll keep the accumulated data thank you
+        df = accumulator
+
+        # Reset the query
+        for key in ('searchtype', 'standarditems', 'startrow', 'endrow'):
+            self[key] = None
+
+        # Convert numerical values
+        string_values = {  # things to keep as strings
+            'sample_id', 'source', 'url', 'title', 'author', 'journal',
+            'method', 'material', 'type', 'composition', 'rock_name'
+        }
+        for key in df.keys():
+            if key not in string_values:
+                df[key] = pandas.to_numeric(df[key])
+
+        # Drop empty columns
+        if drop_empty:
+            df.dropna(axis='columns', how='all', inplace=True)
 
         # Return the result
-        if resp.ok:
-            try:
-                # Create a dataframe
-                df = pandas.read_json(StringIO(resp.text))
-
-                # Convert numerical values
-                string_values = {  # things to keep as strings
-                    'sample_id', 'source', 'url', 'title', 'author', 'journal',
-                    'method', 'material', 'type', 'composition', 'rock_name'
-                }
-                for key in df.keys():
-                    if key not in string_values:
-                        df[key] = pandas.to_numeric(df[key])
-
-                # Drop empty columns
-                if drop_empty:
-                    df.dropna(axis='columns', how='all', inplace=True)
-                return df
-
-            except ValueError:
-                if resp.text == 'no results found':
-                    print("Didn't find any records, returning None")
-                    return None
-                else:
-                    raise IOError("Couldn't parse data in response")
-        else:
-            raise IOError("Couldn't get data from network")
+        return df
 
     @property
     def url(self):
