@@ -45,7 +45,8 @@ setup(
         'geopandas',
         'requests',
         'beautifulsoup4',
-        'lxml'
+        'lxml',
+        'tqdm'
     ],
     extras_require={
         'dev': [
