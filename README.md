@@ -17,8 +17,8 @@ Maintainer: Jess Robertson (jesse.robertson _at_ csiro.au)
 Say you wanted to know how many samples have been submitted to IEDA by your colleague named Dr Barnes:
 
 ```python
->>> from earthchem.query import RESTClientQuery
->>> q = RESTClientQuery(author='barnes')
+>>> import earthchem
+>>> q = earthchem.Query(author='barnes')
 >>> q.count()
 
 4902
