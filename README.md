@@ -14,7 +14,27 @@ Maintainer: Jess Robertson (jesse.robertson _at_ csiro.au)
 
 ### So why would I want to use this?
 
-Gonna come up with a good reason for this here....
+Say you wanted to know how many samples have been submitted to IEDA by your colleague named Dr Barnes:
+
+```python
+>>> from earthchem.query import RESTClientQuery
+>>> q = RESTClientQuery(author='barnes')
+>>> q.count()
+
+4902
+```
+
+That's a lot of samples. Can we see the compositions of the first 50 say?
+
+```python
+>>> df = q.dataframe()
+>>> df.head()
+```
+
+[!Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
+
+
+
 
 ### Great, I'm sold. How do I get it?
 
