@@ -1,4 +1,4 @@
-from earthchem.validation import QueryElement
+from earthchem.validation import *
 
 import unittest
 
@@ -23,6 +23,12 @@ class TestValidators(unittest.TestCase):
             elem = QueryElement(element)
             self.assertTrue(elem is not None)
             self.assertTrue(elem.tree is not None)
+            del elem
+
+    def test_validator_creation(self):
+        for element in ('Reference',):
+            elem = QueryElement(element)
+            validator = complex_validator(elem.root)
             del elem
 
 
