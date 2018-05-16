@@ -10,7 +10,10 @@ Maintainer: Jess Robertson (jesse.robertson _at_ csiro.au)
 | **Service** | **master** | **develop** |
 | ----------- |:----------:|:-----------:|
 | Test status | [![Build Status](https://travis-ci.org/jesserobertson/earthchem-pyclient.svg?branch=master)](https://travis-ci.org/jesserobertson/earthchem-pyclient) | [![Build Status](https://travis-ci.org/jesserobertson/earthchem-pyclient.svg?branch=develop)](https://travis-ci.org/jesserobertson/earthchem-pyclient) |
-| Test coverage | [![Coverage Status](https://coveralls.io/repos/github/jesserobertson/earthchem-pyclient/badge.svg?branch=master)](https://coveralls.io/github/jesserobertson/earthchem-pyclient?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/jesserobertson/earthchem-pyclient/badge.svg?branch=develop)](https://coveralls.io/github/jesserobertson/earthchem-pyclient?branch=develop) |
+| Test coverage | [![Codecov branch](https://img.shields.io/codecov/c/github/codecov/example-python/master.svg)
+](https://codecov.io/gh/jesserobertson/earthchem-pyclient/branch/master) | [
+[![Codecov branch](https://img.shields.io/codecov/c/github/codecov/example-python/develop.svg)
+](https://codecov.io/gh/jesserobertson/earthchem-pyclient/branch/develop) |
 
 ### So why would I want to use this?
 
