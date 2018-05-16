@@ -1,4 +1,5 @@
 from earthchem.query import RESTClientQuery
+from matplotlib import pyplot
 
 import unittest
 
@@ -55,6 +56,7 @@ class IntegrationTestRESTClientQuery(unittest.TestCase):
     def test_plot(self):
         "Check that plotting works without any issues"
         self.query.dataframe().plot('longitude', 'latitude', 'scatter')
+        pyplot.close()
 
 
 if __name__ == '__main__':
