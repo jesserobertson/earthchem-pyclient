@@ -10,11 +10,37 @@ Maintainer: Jess Robertson (jesse.robertson _at_ csiro.au)
 | **Service** | **master** | **develop** |
 | ----------- |:----------:|:-----------:|
 | Test status | [![Build Status](https://travis-ci.org/jesserobertson/earthchem-pyclient.svg?branch=master)](https://travis-ci.org/jesserobertson/earthchem-pyclient) | [![Build Status](https://travis-ci.org/jesserobertson/earthchem-pyclient.svg?branch=develop)](https://travis-ci.org/jesserobertson/earthchem-pyclient) |
-| Test coverage | [![Coverage Status](https://coveralls.io/repos/github/jesserobertson/earthchem-pyclient/badge.svg?branch=master)](https://coveralls.io/github/jesserobertson/earthchem-pyclient?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/jesserobertson/earthchem-pyclient/badge.svg?branch=develop)](https://coveralls.io/github/jesserobertson/earthchem-pyclient?branch=develop) |
+| Test coverage | [![Codecov branch](https://img.shields.io/codecov/c/github/jesserobertson/earthchem-pyclient/master.svg)](https://codecov.io/gh/jesserobertson/earthchem-pyclient/branch/master) | [![Codecov branch](https://img.shields.io/codecov/c/github/jesserobertson/earthchem-pyclient/develop.svg)](https://codecov.io/gh/jesserobertson/earthchem-pyclient/branch/develop) |
 
 ### So why would I want to use this?
 
-Gonna come up with a good reason for this here....
+Say you wanted to know how many samples have been submitted to IEDA by your colleague named Dr Barnes:
+
+```python
+>>> import earthchem
+>>> q = earthchem.Query(author='barnes')
+>>> q.count()
+
+4902
+```
+
+That's a lot of samples. Can we see the compositions of the first 50 say?
+
+```python
+>>> df = q.dataframe()
+>>> df.head()
+```
+
+![Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
+
+
+Great, so now I can make some little plots right?
+
+```python
+>>> df.plot('al2o3', 'sio2', 'scatter')
+```
+
+![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/plot_output.png)
 
 ### Great, I'm sold. How do I get it?
 

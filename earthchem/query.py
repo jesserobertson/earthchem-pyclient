@@ -33,7 +33,7 @@ def make_query_docstring():
         docstr += '\n' + wrapper.fill('{0} - {1}'.format(*item))
     return docstr
 
-class RESTClientQuery(dict):
+class Query(dict):
 
     __doc__ = make_query_docstring()
     docdict = get_documentation()
@@ -48,7 +48,7 @@ class RESTClientQuery(dict):
 
     def __repr__(self):
         kwargs = ', '.join('{0}={1}'.format(*it) for it in self.items())
-        return 'RESTClientQuery({})'.format(kwargs)
+        return 'Query({})'.format(kwargs)
 
     def __setitem__(self, key, value):
         """ Sets a particular query term, making sure that the values 
@@ -83,10 +83,16 @@ class RESTClientQuery(dict):
         else:
             raise IOError("Couldn't get data from network") 
 
-    def dataframe(self, standarditems=True):
+    def dataframe(self, standarditems=True, drop_empty=True):
         """ Get the actual data in a dataframe
 
             Note that this doesn't do pagination yet...
+
+            Parameters:
+                standarditems - if True, returns the Earthchem 
+                    standard items in the table
+                drop_empty - if True, drops columns for which there 
+                    is no data
         """
         # Add the proper search type keys to the query
         self['searchtype'] = 'rowdata'
@@ -97,7 +103,23 @@ class RESTClientQuery(dict):
         # Return the result
         if resp.ok:
             try:
-                return pandas.read_json(StringIO(resp.text))
+                # Create a dataframe
+                df = pandas.read_json(StringIO(resp.text))
+
+                # Convert numerical values
+                string_values = {  # things to keep as strings
+                    'sample_id', 'source', 'url', 'title', 'author', 'journal',
+                    'method', 'material', 'type', 'composition', 'rock_name'
+                }
+                for key in df.keys():
+                    if key not in string_values:
+                        df[key] = pandas.to_numeric(df[key])
+
+                # Drop empty columns
+                if drop_empty:
+                    df.dropna(axis='columns', how='all', inplace=True)
+                return df
+
             except ValueError:
                 if resp.text == 'no results found':
                     print("Didn't find any records, returning None")
