@@ -7,6 +7,10 @@
 
 from .documentation import get_documentation
 
+import requests
+import pandas
+
+from io import StringIO
 import textwrap
 
 def make_query_docstring():
@@ -36,6 +40,8 @@ class RESTClientQuery(dict):
 
     def __init__(self, **kwargs):
         super().__init__()
+
+        # Add everything to dictionary
         for key, value in kwargs.items():
             # Check that items are ok to query
             if key not in self.docdict.keys():
@@ -60,6 +66,47 @@ class RESTClientQuery(dict):
             del self[key]
         else:
             super().__setitem__(key, value)
+
+    def count(self):
+        """ Get the total number of items returned by the query
+        """
+        self['searchtype'] = 'count'
+        resp = requests.get(self.url)
+        # del self['searchtype']
+
+        # Return the result
+        if resp.ok:
+            try:
+                return int(resp.json()['Count'])
+            except:
+                raise IOError("Couldn't parse data in response")
+        else:
+            raise IOError("Couldn't get data from network") 
+
+    def dataframe(self, standarditems=True):
+        """ Get the actual data in a dataframe
+
+            Note that this doesn't do pagination yet...
+        """
+        # Add the proper search type keys to the query
+        self['searchtype'] = 'rowdata'
+        self['standarditems'] = 'yes' if standarditems else 'no'
+        resp = requests.get(self.url)
+        del self['searchtype']
+        del self['standarditems']
+
+        # Return the result
+        if resp.ok:
+            try:
+                return pandas.read_json(StringIO(resp.text))
+            except ValueError:
+                if resp.text == 'no results found':
+                    print("Didn't find any records, returning None")
+                    return None
+                else:
+                    raise IOError("Couldn't parse data in response")
+        else:
+            raise IOError("Couldn't get data from network")
 
     @property
     def url(self):
