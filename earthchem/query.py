@@ -33,7 +33,7 @@ def make_query_docstring():
         docstr += '\n' + wrapper.fill('{0} - {1}'.format(*item))
     return docstr
 
-class RESTClientQuery(dict):
+class Query(dict):
 
     __doc__ = make_query_docstring()
     docdict = get_documentation()
@@ -48,7 +48,7 @@ class RESTClientQuery(dict):
 
     def __repr__(self):
         kwargs = ', '.join('{0}={1}'.format(*it) for it in self.items())
-        return 'RESTClientQuery({})'.format(kwargs)
+        return 'Query({})'.format(kwargs)
 
     def __setitem__(self, key, value):
         """ Sets a particular query term, making sure that the values 
