@@ -10,7 +10,8 @@
                 "__pycache__",
                 ".ipynb_checkpoints",
                 ".pytest_cache",
-                "htmlcov"
+                "htmlcov",
+                ".cache"
             ],
             "file_exclude_patterns": [
                 "*.so",
