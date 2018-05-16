@@ -10,16 +10,20 @@
 from setuptools import setup, find_packages
 import versioneer
 
+with open('README.md', 'r') as src:
+    LONG_DESCRIPTION = src.read()
+
 ## PACKAGE INFORMATION
 setup(
     name='earthchem',
     version=versioneer.get_version(),
     description='Data slurper for getting stuff from Earthchem services',
-    long_description='making something good here',
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type='text/markdown',
     license='MIT',
     author='Jess Robertson',
     author_email='jesse.robertson@csiro.au',
-    url='https://github.com/jesserobertson/earthchem.git',
+    url='https://github.com/jesserobertson/earthchem-pyclient.git',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',

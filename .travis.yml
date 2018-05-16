@@ -11,11 +11,13 @@ install:
   - pip install -q pytest pytest-runner pytest-cov coverage coveralls
   - python setup.py install
 
+before_script: # configure a headless display to test plot generation
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+
 script:
   - python setup.py test
 
 after_success:
-  # We only want to run coveralls for Python 3.6 so we don't double up...
-  - if [[$ENV == python=3.6* ]]; then
-      coveralls;
-    fi
+  - coveralls
