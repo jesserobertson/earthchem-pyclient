@@ -3,12 +3,9 @@ python:
   - "3.5"
   - "3.6"
 
-env:
-  - COVERALLS_REPO_TOKEN=kQuX1Zr77YwYiNEmRuPUqWPPfjmNTh593
-
 install:
   # Install test requirements seperately
-  - pip install -q pytest pytest-runner pytest-cov coverage coveralls
+  - pip install -q pytest pytest-runner pytest-cov coverage codecov
   - python setup.py install
 
 before_script: # configure a headless display to test plot generation
@@ -20,4 +17,4 @@ script:
   - python setup.py test
 
 after_success:
-  - coveralls
+  - codecov

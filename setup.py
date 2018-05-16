@@ -64,7 +64,9 @@ setup(
     # Contents
     packages=find_packages(exclude=['test*']),
     test_suite="tests",
-    package_data={},
+    package_data={
+        'earthchem': ['resources/*']
+    },
 
     # other stuff
     cmdclass=versioneer.get_cmdclass(),
