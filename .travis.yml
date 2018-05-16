@@ -3,9 +3,6 @@ python:
   - "3.5"
   - "3.6"
 
-env:
-  - COVERALLS_REPO_TOKEN=kQuX1Zr77YwYiNEmRuPUqWPPfjmNTh593
-
 install:
   # Install test requirements seperately
   - pip install -q pytest pytest-runner pytest-cov coverage codecov
