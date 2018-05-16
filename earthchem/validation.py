@@ -26,6 +26,9 @@ TYPE_MAPPING = {
     'xs:string': 'string'
 }
 
+# Mapping for namespaces
+_NS = {"xs": "http://www.w3.org/2001/XMLSchema"}
+
 def get_type(elem):
     """ Get the data type for an XML element
     """    
@@ -44,14 +47,14 @@ def get_type(elem):
             continue
     
     # If we're here we dont' know what to do
-    raise ValueError("Can't parse type for element {}".format(elem))
+    raise ValueError("Can't parse type for element named {}".format(elem.get('name')))
 
 def complex_validator(elem):
     """ Construct a validator for an xs:complexType
     """
     # Pull together keys and validators for each key
     validators = {}
-    for attr in elem.xpath('./xs:complexType/xs:attribute', namespaces=self.ns):
+    for attr in elem.xpath('./xs:complexType/xs:attribute', namespaces=_NS):
         # Decide what type of validator we need based on attribute type
         attrtype = get_type(attr)
         if attrtype == 'string':
@@ -137,8 +140,6 @@ class QueryElement(dict):
                 search schema.
     """
     
-    ns = {"xs": "http://www.w3.org/2001/XMLSchema"}
-    
     def __init__(self, name):
         self.name = name.lower()
         self.xmlname = name
@@ -173,4 +174,4 @@ class QueryElement(dict):
     
     def xpath(self, query):
         "Run an xpath query against our schema"
-        return self.tree.xpath(query, namespaces=self.ns)
+        return self.tree.xpath(query, namespaces=_NS)
