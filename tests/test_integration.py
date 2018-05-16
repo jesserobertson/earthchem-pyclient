@@ -1,4 +1,4 @@
-from earthchem.query import RESTClientQuery
+from earthchem import Query
 
 from matplotlib import pyplot
 
@@ -9,7 +9,7 @@ class IntegrationTestRESTClientQuery(unittest.TestCase):
     "Some integration tests to check that things are working"
 
     def setUp(self):
-        self.query = RESTClientQuery(author='barnes')
+        self.query = Query(author='barnes')
         self.df = self.query.dataframe()
 
     def test_plot_latlon(self):

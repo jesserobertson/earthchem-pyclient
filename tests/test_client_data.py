@@ -1,11 +1,11 @@
-from earthchem.query import RESTClientQuery
+from earthchem import Query
 
 import unittest
 
 class TestRESTClientData(unittest.TestCase):
 
     def setUp(self):
-        self.query = RESTClientQuery(author='barnes')
+        self.query = Query(author='barnes')
         self.count = self.query.count()
         self.df = self.query.dataframe()
 
