@@ -43,10 +43,6 @@ class RESTClientQuery(dict):
 
         # Add everything to dictionary
         for key, value in kwargs.items():
-            # Check that items are ok to query
-            if key not in self.docdict.keys():
-                raise KeyError('Unknown key {0}'.format(key))
-
             # Add to dictionary
             self[key] = str(value)
 
@@ -62,6 +58,10 @@ class RESTClientQuery(dict):
                 key - the query key to set
                 value - the value to set for that search.
         """
+        # Check that items are ok to query
+        if key not in self.docdict.keys():
+            raise KeyError('Unknown key {0}'.format(key))
+
         if value is None:
             del self[key]
         else:
@@ -92,8 +92,7 @@ class RESTClientQuery(dict):
         self['searchtype'] = 'rowdata'
         self['standarditems'] = 'yes' if standarditems else 'no'
         resp = requests.get(self.url)
-        del self['searchtype']
-        del self['standarditems']
+        self['searchtype'], self['standarditems'] = None, None
 
         # Return the result
         if resp.ok:
@@ -115,13 +114,6 @@ class RESTClientQuery(dict):
         for item in self.items():
             query_string += '&{0}={1}'.format(*item)
         return query_string
-
-    @property
-    def result(self):
-        """ Query the webservice using the current query
-        """
-        # Make a call to the webservice
-        pass
     
     def info(self, key, pprint=True):
         """ Return info about a search key
