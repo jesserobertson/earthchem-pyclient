@@ -14,15 +14,15 @@ import pkg_resources
 
 # We're not live updating at the moment but it's nice to have this recoded somewhere
 SOAP_SCHEMA_URL = 'http://ecp.iedadata.org/soap_search_schema.xsd'
-SOAP_SCHEMA = pkg_resources.resource_stream(
+SOAP_SCHEMA = pkg_resources.resource_filename(
         "earthchem.resources",
         "soap_search_schema.xsd")
 
 # Mapping XML types to our simple types
 TYPE_MAPPING = {
-    '{{{}}}complexType'.format(self.ns['xs']): 'complex',
-    '{{{}}}simpleType'.format(self.ns['xs']): 'simple',
-    '{{{}}}string'.format(self.ns['xs']): 'string',
+    '{http://www.w3.org/2001/XMLSchema}complexType': 'complex',
+    '{http://www.w3.org/2001/XMLSchema}simpleType': 'simple',
+    '{http://www.w3.org/2001/XMLSchema}string': 'string',
     'xs:string': 'string'
 }
 
@@ -45,6 +45,82 @@ def get_type(elem):
     
     # If we're here we dont' know what to do
     raise ValueError("Can't parse type for element {}".format(elem))
+
+def complex_validator(elem):
+    """ Construct a validator for an xs:complexType
+    """
+    # Pull together keys and validators for each key
+    validators = {}
+    for attr in elem.xpath('./xs:complexType/xs:attribute', namespaces=self.ns):
+        # Decide what type of validator we need based on attribute type
+        attrtype = get_type(attr)
+        if attrtype == 'string':
+            # We accept anything for strings
+            validators[name] = string_validator(attr)
+            
+        elif attrtype == 'simple':
+            # For simple types there's a restriction on values
+            print('constructing simple validator')
+            validators[attr.get('name')] = construct_simple_validator(attr)
+            
+        elif attrtype == 'complex':
+            validators[attr.get('name')] = construct_complex_validator(attr)
+        
+    # Construct a validator function
+    name = elem.get('name')
+    def _validator(obj):
+        if type(obj) != dict:
+            raise ValueError('I expected a dict for parameter {} - got a {} instead ({})'.format(name, type(obj), obj))
+        
+        # Check keys and values against schema
+        for key, value in obj.items():
+            try:
+                vd = validators[key]
+            except KeyError:
+                raise KeyError('Unknown key {} - valid values are {}'.format(key, list(validators.keys())))
+    
+    return _validator
+
+def simple_validator(elem):
+    """ Construct a validator for an xs:simpleType - these are normally values
+        with particular restrictions
+    """
+    # Construct a validator that checks values against known ok values
+    name = elem.get('name')
+    def _validator(obj):
+        if type(obj) != dict:
+            raise ValueError('I expected a str for parameter {} - got a {} instead ({})'.format(name, type(obj), obj))
+
+    # Return the validation function
+    return _validator
+
+def string_validator(elem):
+    """ String validator for objects - validates any string it's passed
+    """
+    # Construct a validator that just checks that we have a string
+    name = elem.get('name')
+    def _validator(obj):
+        if type(obj) != str:
+            raise ValueError('I expected a string for parameter {} - got a {} instead ({})'.format(elem, type(obj), obj))
+        return True
+    
+    # Return the validation function
+    return _validator
+
+VALIDATOR_MAPPING = {
+    'string': string_validator,
+    'complex': complex_validator,
+    'simple': simple_validator
+}
+
+def validate(dict_like, validators):
+    for key, value in dict_like.items():
+        try:
+            if not validators[key](value):
+                raise ValueError
+        except KeyError:
+            print('Invalid key {}, valid keys are {}'.format(key, validators.keys()))
+        print(validators[key](value))
 
 class QueryElement(dict):
     
@@ -90,7 +166,7 @@ class QueryElement(dict):
             return self._tree
         
         # Otherwise just make a new tree
-        with open(soap_schema, 'r') as src:
+        with open(SOAP_SCHEMA, 'r') as src:
             self._tree = etree.parse(src)
         
         return self._tree
