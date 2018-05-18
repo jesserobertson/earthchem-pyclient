@@ -76,7 +76,7 @@ class Query(dict):
         """
         self['searchtype'] = 'count'
         resp = requests.get(self.url)
-        # del self['searchtype']
+        self['searchtype'] = None
 
         # Return the result
         if resp.ok:
@@ -100,12 +100,15 @@ class Query(dict):
                 drop_empty - if True, drops columns for which there 
                     is no data
         """
-        # Add the proper search type keys to the query
-        self['searchtype'] = 'rowdata'
-        self['standarditems'] = 'yes' if standarditems else 'no'
+        # Check that we actually have some data to fetch
+        if self.count() == 0:
+            print("Didn't find any records for this query, returning None")
+            return None
 
         # Get the list of pages we're going to use, use to set up tqdm and query
-        pages = make_pages(max_rows or self.count())[:4]
+        if max_rows is None:
+            max_rows = self.count()
+        pages = make_pages(max_rows - 1)
         tqdm_kwargs = {
             'desc': 'Downloading pages',
             'total': len(pages)
@@ -114,7 +117,15 @@ class Query(dict):
         # Accumulate pages as we go
         accumulator = None
         for page in tqdm.tqdm(pages, **tqdm_kwargs):
-            self['startrow'], self['endrow'] = page
+            # Add the proper search type keys to the query
+            self.update(
+                searchtype='rowdata',
+                standarditems='yes' if standarditems else 'no',
+                startrow=page[0],
+                endrow=page[1]
+            )
+
+            # Get data
             resp = requests.get(self.url)
             if resp.ok:
                 try:
