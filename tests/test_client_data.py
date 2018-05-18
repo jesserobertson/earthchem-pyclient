@@ -7,7 +7,7 @@ class TestRESTClientData(unittest.TestCase):
     def setUp(self):
         self.query = Query(author='barnes')
         self.count = self.query.count()
-        self.df = self.query.dataframe()
+        self.df = self.query.dataframe(max_rows=124)
 
     def test_data_type(self):
         "Check the right columns are numeric"
