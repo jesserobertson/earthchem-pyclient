@@ -29,7 +29,7 @@ class TestRESTClientQuery(unittest.TestCase):
         "Check things work with an author count that returns data"
         self.query['author'] = 'barnes'
         self.assertTrue(self.query.count() > 5)
-        self.assertTrue(self.query.dataframe() is not None)
+        self.assertTrue(self.query.dataframe(max_rows=10) is not None)
 
     def test_borked_key(self):
         "Check that an unknown key raises an error"
