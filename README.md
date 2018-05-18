@@ -24,11 +24,13 @@ Say you wanted to know how many samples have been submitted to IEDA by your coll
 4902
 ```
 
-That's a lot of samples. Can we see the compositions of the first 50 say?
+That's a lot of samples. Can we see the compositions of the first 150 say?
 
 ```python
->>> df = q.dataframe()
+>>> df = q.dataframe(max_rows=150)
 >>> df.head()
+
+Downloading pages: 100%|██████████| 3/3 [00:05<00:00,  1.71s/it]
 ```
 
 ![Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
