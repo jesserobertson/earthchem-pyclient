@@ -14,23 +14,28 @@ Maintainer: Jess Robertson (jesse.robertson _at_ csiro.au)
 
 ### So why would I want to use this?
 
-Say you wanted to know how many samples have been submitted to IEDA by your colleague named Dr Barnes:
+Say you wanted to know how many Archean-aged samples have been submitted to IEDA by your colleague named Dr S Barnes:
 
 ```python
 >>> import earthchem
->>> q = earthchem.Query(author='barnes')
+>>> q = earthchem.Query(
+        author='barnes',
+        geologicalage='archean'
+    )
 >>> q.count()
-
-4902
+```
+```
+876
 ```
 
-That's a lot of samples. Can we see the compositions of the first 150 say?
+Nice, let's take a look at the compositions of these
 
 ```python
->>> df = q.dataframe(max_rows=150)
+>>> df = q.dataframe()
 >>> df.head()
-
-Downloading pages: 100%|██████████| 3/3 [00:05<00:00,  1.71s/it]
+```
+```
+Downloading pages: 100%|██████████| 18/18 [00:29<00:00,  1.66s/it]
 ```
 
 ![Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
