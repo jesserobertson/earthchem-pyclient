@@ -1,4 +1,4 @@
-from . import documentation, query
+from . import documentation, query, validation
 
 from .query import Query
 
