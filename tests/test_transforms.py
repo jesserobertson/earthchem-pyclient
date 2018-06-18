@@ -217,7 +217,7 @@ class TestTransforms(unittest.TestCase):
                 # Generate random variables
                 mvn = np.random.multivariate_normal(
                     stats.uniform(0, 1).rvs(ndim - 1),
-                    random.correlation_matrix(ndim - 1))
+                    correlation_matrix(ndim - 1))
                 X = t.inverse_transform(mvn.rvs(npts))
                 L = t.transform(X)
 

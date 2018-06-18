@@ -48,7 +48,8 @@ setup(
         'lxml',
         'tqdm',
         'python-ternary',
-        'periodictable'
+        'periodictable',
+        'scikit-learn'
     ],
     extras_require={
         'dev': [
