@@ -4,6 +4,7 @@ channels:
 dependencies:
   - numpy
   - pandas
+  - scikit-learn
   - geopandas
   - requests
   - pytest
@@ -13,9 +14,9 @@ dependencies:
   - geojson
   - cartopy
   - pyyaml
+  - periodictable
+  - python-ternary
   - pip:
-    - periodictable
-    - python-ternary
     - versioneer
     - pytest-cov
     - pytest-runner

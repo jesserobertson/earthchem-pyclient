@@ -1,4 +1,4 @@
-import pandas as import pd
+import pandas as pd
 import periodictable as pt
 
 
@@ -12,3 +12,31 @@ def common_elements(cutoff=92, output='formula'):
     if not output == 'formula':
         elements = [el.__str__() for el in elements]
     return elements
+
+
+def to_molecular(df: pd.DataFrame, renorm=True):
+    """
+    Converts mass quantities to molar quantities of the same order.
+    E.g.:
+    mass% --> mol%
+    mass-ppm --> mol-ppm
+    """
+    MWs = [pt.formula(c).mass for c in df.columns]
+    if renorm:
+         return renormalise(df.div(MWs))
+    else:
+        return df.div(MWs)
+
+
+def to_weight(df: pd.DataFrame, renorm=True):
+    """
+    Converts molar quantities to mass quantities of the same order.
+    E.g.:
+    mol% --> mass%
+    mol-ppm --> mass-ppm
+    """
+    MWs = [pt.formula(c).mass for c in df.columns]
+    if renorm:
+        return renormalise(df.multiply(MWs))
+    else:
+        return df.multiply(MWs)
