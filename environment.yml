@@ -5,6 +5,7 @@ dependencies:
   - numpy
   - pandas
   - scikit-learn
+  - scipy
   - geopandas
   - requests
   - pytest

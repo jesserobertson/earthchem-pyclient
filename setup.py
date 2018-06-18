@@ -49,7 +49,8 @@ setup(
         'tqdm',
         'python-ternary',
         'periodictable',
-        'scikit-learn'
+        'scikit-learn',
+        'scipy'
     ],
     extras_require={
         'dev': [
