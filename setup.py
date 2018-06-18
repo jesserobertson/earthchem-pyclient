@@ -46,7 +46,9 @@ setup(
         'requests',
         'beautifulsoup4',
         'lxml',
-        'tqdm'
+        'tqdm',
+        'python-ternary',
+        'periodictable'
     ],
     extras_require={
         'dev': [
