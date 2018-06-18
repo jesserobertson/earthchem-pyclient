@@ -14,6 +14,20 @@ def common_elements(cutoff=92, output='formula'):
     return elements
 
 
+def REE(output='formula', include_extras=False):
+    """
+    Provides the list of Rare Earth Elements
+    Output options are 'formula', or strings.
+
+    Todo: add include extras such as Y.
+    """
+    elements = ['La', 'Ce', 'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd',
+            'Tb', 'Dy', 'Ho', 'Er', 'Tm', 'Yb', 'Lu']
+    if output == 'formula':
+        elements = [getattr(pt, el) for el in elements]
+    return elements
+
+
 def to_molecular(df: pd.DataFrame, renorm=True):
     """
     Converts mass quantities to molar quantities of the same order.

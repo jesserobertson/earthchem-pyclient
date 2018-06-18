@@ -2,7 +2,8 @@ import unittest
 import pandas as pd
 import numpy as np
 import periodictable as pt
-from earthchem.geochem import to_weight, to_molecular, common_elements
+from earthchem.geochem import to_weight, to_molecular, common_elements, \
+                              REE
 
 
 class TestWeightMolarReversal(unittest.TestCase):
@@ -63,5 +64,40 @@ class TestCommonElements(unittest.TestCase):
     def test_string_output(self):
         """Check the function produces string output."""
         for el in common_elements(cutoff=10, output='string'):
+            with self.subTest(el=el):
+                self.assertIs(type(el), str)
+
+
+class TestREE(unittest.TestCase):
+    """Tests the Rare Earth Element generator."""
+
+    def setUp(self):
+        self.min_z = 57
+        self.max_z = 71
+
+    def test_complete(self):
+        """Check all REE are present."""
+        reels = REE(output='formula')
+        ns = [el.number for el in reels]
+        for n in range(self.min_z, self.max_z + 1):
+            with self.subTest(n=n):
+                self.assertTrue(n in ns)
+
+    def test_precise(self):
+        """Check that only the REE are returned."""
+        reels = REE(output='formula')
+        ns = [el.number for el in reels]
+        self.assertTrue(min(ns) == self.min_z)
+        self.assertTrue(max(ns) == self.max_z)
+
+    def test_formula_output(self):
+        """Check the function produces formula output."""
+        for el in REE(output='formula'):
+            with self.subTest(el=el):
+                self.assertIs(type(el), type(pt.elements[0]))
+
+    def test_string_output(self):
+        """Check the function produces string output."""
+        for el in REE(output='string'):
             with self.subTest(el=el):
                 self.assertIs(type(el), str)
