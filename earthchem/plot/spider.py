@@ -81,4 +81,4 @@ def spiderplot(df, ax=None, components:list=None, plot=True, fill=False, **kwarg
     unused_keys = [i for i in kwargs if i not in list(sty.keys()) + \
                   ['alpha', 'a', 'c', 'color', 'marker']]
     if len(unused_keys):
-        warnings.warn(f'Styling not yet implemented for:{unused_keys}')
+        warnings.warn('Styling not yet implemented for:{}'.format(unused_keys))
