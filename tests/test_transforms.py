@@ -85,9 +85,11 @@ class TestTransforms(unittest.TestCase):
         for ndim in (3, 5, 10, 20):
             for _ in range(10):
                 # Generate random variables
-                mvn = np.random.multivariate_normal(
-                    stats.uniform(0, 1).rvs(ndim),
-                    correlation_matrix(ndim, stats.gamma(2)))
+                mvn = stats.multivariate_normal(
+                            mean=stats.uniform(0, 1).rvs(ndim),
+                            cov=correlation_matrix(ndim, stats.gamma(2))
+                            )
+
                 X = t.inverse_transform(mvn.rvs(npts))
                 L = t.transform(X)
 
@@ -109,7 +111,7 @@ class TestTransforms(unittest.TestCase):
         npts = 1000
         for _ in range(10):
             # Generate random variables
-            mvn = np.random.multivariate_normal(
+            mvn = stats.multivariate_normal(
                 stats.uniform(0, 1).rvs(3),
                 correlation_matrix(3, stats.gamma(2)))
             X = mvn.rvs(npts)
@@ -126,7 +128,7 @@ class TestTransforms(unittest.TestCase):
         # Loop over different dimensions
         for ndim in (2, 4, 5, 10, 20):
             # Generate random variables
-            mvn = np.random.multivariate_normal(
+            mvn = stats.multivariate_normal(
                 stats.uniform(0, 1).rvs(ndim),
                 correlation_matrix(ndim, stats.gamma(2)))
             self.assertRaises(ValueError, t.transform, mvn.rvs(10))
@@ -150,9 +152,8 @@ class TestTransforms(unittest.TestCase):
         "Closure operator should work ok"
         for ndim in range(2, 20):
             for npts in (10, 100, 1000):
-                mvn = np.random.multivariate_normal(
-                    stats.uniform(0, 1).rvs(3),
-                    correlation_matrix(3, stats.gamma(2)))
+                mvn = stats.multivariate_normal(stats.uniform(0, 1).rvs(3),
+                                        correlation_matrix(3, stats.gamma(2)))
                 X = closure(mvn.rvs(npts))
                 self.assertTrue(np.allclose(X.sum(axis=1), np.ones(npts)))
 
@@ -165,7 +166,7 @@ class TestTransforms(unittest.TestCase):
         for ndim in (3, 5, 10, 20):
             for _ in range(10):
                 # Generate random variables
-                mvn = np.random.multivariate_normal(
+                mvn = stats.multivariate_normal(
                     stats.uniform(0, 1).rvs(ndim - 1),
                     correlation_matrix(ndim - 1))
                 X = t.inverse_transform(mvn.rvs(npts))
@@ -190,7 +191,7 @@ class TestTransforms(unittest.TestCase):
         for ndim in (3, 5, 10, 20):
             for _ in range(10):
                 # Generate random variables
-                mvn = np.random.multivariate_normal(
+                mvn = stats.multivariate_normal(
                     stats.uniform(0, 1).rvs(ndim - 1),
                     correlation_matrix(ndim - 1))
                 X = t.inverse_transform(mvn.rvs(npts))
@@ -215,7 +216,7 @@ class TestTransforms(unittest.TestCase):
                 t = AdditiveLogTransform(np.random.randint(0, ndim))
 
                 # Generate random variables
-                mvn = np.random.multivariate_normal(
+                mvn = stats.multivariate_normal(
                     stats.uniform(0, 1).rvs(ndim - 1),
                     correlation_matrix(ndim - 1))
                 X = t.inverse_transform(mvn.rvs(npts))
@@ -234,7 +235,7 @@ class TestTransforms(unittest.TestCase):
     def test_additive_index_error(self):
         "Additive logratio should raise value error if base index > len"
         ndim = 4
-        mvn = np.random.multivariate_normal(
+        mvn = stats.multivariate_normal(
             stats.uniform(0, 1).rvs(ndim - 1),
             correlation_matrix(ndim - 1))
         alr = AdditiveLogTransform(ndim + 2)

@@ -9,7 +9,8 @@ class IntegrationTestRESTClientQuery(unittest.TestCase):
 
     def setUp(self):
         self.query = Query(author='barnes')
-        self.df = self.query.dataframe()
+        # <50 for test speed, pagination is checked elsewhere
+        self.df = self.query.dataframe(max_rows=49)
 
     def test_plot_latlon(self):
         "Check that plotting works without any issues"
