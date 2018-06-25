@@ -40,14 +40,23 @@ Downloading pages: 100%|██████████| 18/18 [00:29<00:00,  1.6
 
 ![Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
 
-
-Great, so now I can make some little plots right?
+Hmm looks like Dr Barnes is a bit of a komatiite expert
 
 ```python
->>> df.plot('al2o3', 'sio2', 'scatter')
+>>> fig = df.mgo.hist()
+>>> fig.set_xlabel('MgO (wt %)')
+>>> fig.set_ylabel('Sample count')
 ```
 
-![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/plot_output.png)
+![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/mgo.png)
+
+Maybe we'd like to see this as a ternary plot instead...
+
+```python
+>>> earthchem.plot.ternaryplot(df, components=['mgo', 'al2o3', 'cao'])
+```
+
+![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/ternary.png)
 
 ### Great, I'm sold. How do I get it?
 
