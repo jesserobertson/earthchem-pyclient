@@ -58,6 +58,16 @@ Maybe we'd like to see this as a ternary plot instead...
 
 ![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/ternary.png)
 
+If spiderplots are more your thing we have you covered too (although we have to make up some data for this one...): 
+
+```python
+>>> reels = ec.geochem.REE(output='string')
+>>> df = pd.DataFrame({k: v for k,v in zip(reels, np.random.rand(len(reels), 2))})
+>>> ec.plot.spiderplot(df)
+```
+
+![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/reels.png)
+
 ### Great, I'm sold. How do I get it?
 
 Provided you have python installed, this library is just a `pip install earthchem` away. 
