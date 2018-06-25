@@ -1,4 +1,4 @@
-from . import documentation, query, validation
+from . import documentation, query, validation, transform, geochem, plot
 
 from .query import Query
 
