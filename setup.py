@@ -46,7 +46,11 @@ setup(
         'requests',
         'beautifulsoup4',
         'lxml',
-        'tqdm'
+        'tqdm',
+        'python-ternary',
+        'periodictable',
+        'scikit-learn',
+        'scipy'
     ],
     extras_require={
         'dev': [

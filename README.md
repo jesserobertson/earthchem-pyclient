@@ -14,35 +14,59 @@ Maintainer: Jess Robertson (jesse.robertson _at_ csiro.au)
 
 ### So why would I want to use this?
 
-Say you wanted to know how many samples have been submitted to IEDA by your colleague named Dr Barnes:
+Say you wanted to know how many Archean-aged samples have been submitted to IEDA by your colleague named Dr S Barnes:
 
 ```python
 >>> import earthchem
->>> q = earthchem.Query(author='barnes')
+>>> q = earthchem.Query(
+        author='barnes',
+        geologicalage='archean'
+    )
 >>> q.count()
-
-4902
+```
+```
+876
 ```
 
-That's a lot of samples. Can we see the compositions of the first 150 say?
+Nice, let's take a look at the compositions of these
 
 ```python
->>> df = q.dataframe(max_rows=150)
+>>> df = q.dataframe()
 >>> df.head()
-
-Downloading pages: 100%|██████████| 3/3 [00:05<00:00,  1.71s/it]
+```
+```
+Downloading pages: 100%|██████████| 18/18 [00:29<00:00,  1.66s/it]
 ```
 
 ![Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
 
-
-Great, so now I can make some little plots right?
+Hmm looks like Dr Barnes is a bit of a komatiite expert
 
 ```python
->>> df.plot('al2o3', 'sio2', 'scatter')
+>>> fig = df.mgo.hist()
+>>> fig.set_xlabel('MgO (wt %)')
+>>> fig.set_ylabel('Sample count')
 ```
 
-![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/plot_output.png)
+![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/mgo.png)
+
+Maybe we'd like to see this as a ternary plot instead...
+
+```python
+>>> earthchem.plot.ternaryplot(df, components=['mgo', 'al2o3', 'cao'])
+```
+
+![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/ternary.png)
+
+If spiderplots are more your thing we have you covered too (although we have to make up some data for this one...): 
+
+```python
+>>> reels = ec.geochem.REE(output='string')
+>>> df = pd.DataFrame({k: v for k,v in zip(reels, np.random.rand(len(reels), 2))})
+>>> ec.plot.spiderplot(df)
+```
+
+![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/reels.png)
 
 ### Great, I'm sold. How do I get it?
 
