@@ -14,6 +14,8 @@ Maintainer: Jess Robertson (jesse.robertson _at_ csiro.au)
 
 ### So why would I want to use this?
 
+Run this example in a live Jupyter notebook: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/jesserobertson/earthchem-pyclient/master?filepath=examples%2Frest_queries.ipynb)
+
 Say you wanted to know how many Archean-aged samples have been submitted to IEDA by your colleague named Dr S Barnes:
 
 ```python
@@ -31,11 +33,11 @@ Say you wanted to know how many Archean-aged samples have been submitted to IEDA
 Nice, let's take a look at the compositions of these
 
 ```python
->>> df = q.dataframe()
+>>> df = q.dataframe(max_rows=500)
 >>> df.head()
 ```
 ```
-Downloading pages: 100%|██████████| 18/18 [00:29<00:00,  1.66s/it]
+Downloading pages: 100%|██████████| 10/10 [00:04<00:00,  2.24it/s]
 ```
 
 ![Table output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/table_output.png)
@@ -57,16 +59,6 @@ Maybe we'd like to see this as a ternary plot instead...
 ```
 
 ![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/ternary.png)
-
-If spiderplots are more your thing we have you covered too (although we have to make up some data for this one...): 
-
-```python
->>> reels = ec.geochem.REE(output='string')
->>> df = pd.DataFrame({k: v for k,v in zip(reels, np.random.rand(len(reels), 2))})
->>> ec.plot.spiderplot(df)
-```
-
-![Plot output](https://github.com/jesserobertson/earthchem-pyclient/raw/develop/docs/resources/reels.png)
 
 ### Great, I'm sold. How do I get it?
 
