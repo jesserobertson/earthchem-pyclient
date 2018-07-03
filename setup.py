@@ -50,7 +50,8 @@ setup(
         'python-ternary',
         'periodictable',
         'scikit-learn',
-        'scipy'
+        'scipy',
+        'pyrolite'
     ],
     extras_require={
         'dev': [

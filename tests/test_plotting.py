@@ -2,10 +2,13 @@ import unittest
 
 import pandas as pd
 import numpy as np
+from numpy.random import multivariate_normal
 import ternary
+import matplotlib.axes as matax
 
-from earthchem.plot import ternaryplot, spiderplot
+from earthchem.plot import ternaryplot, spiderplot, densityplot
 from earthchem.geochem import common_elements, REE
+
 
 class TestSpiderplot(unittest.TestCase):
     """Tests the Spiderplot functionality."""
@@ -20,16 +23,12 @@ class TestSpiderplot(unittest.TestCase):
         """Test failure on no-plot no-fill options."""
         spiderplot(self.df, plot=False, fill=False)
 
-    def test_irrellevant_style_options(self):
-        """Test stability under additional kwargs."""
-        style = {'thingwhichisnotacolor': 'notacolor', 'irrelevant': 'red'}
-        self.assertWarns(UserWarning, spiderplot(self.df, **style))
-
     @unittest.expectedFailure
     def test_invalid_style_options(self):
         """Test stability under invalid style values."""
         style = {'color': 'notacolor', 'marker': 'red'}
         spiderplot(self.df, **style)
+
 
 class TestTernaryplot(unittest.TestCase):
     """Tests the Ternaryplot functionality."""
@@ -60,6 +59,32 @@ class TestTernaryplot(unittest.TestCase):
         out = ternaryplot(df)
         self.assertEqual(type(out),
                          ternary.ternary_axes_subplot.TernaryAxesSubplot)
+
+
+class TestDensityplot(unittest.TestCase):
+    """Tests the Densityplot functionality."""
+
+    def setUp(self):
+        self.cols = ['MgO', 'SiO2', 'CaO']
+        data = np.array([0.5, 0.4, 0.3])
+        cov =   np.array([[2, -1, -0.5],
+                         [-1, 2, -1],
+                         [-0.5, -1, 2]])
+        bidata = multivariate_normal(data[:2], cov[:2, :2], 2000)
+
+        self.bidf = pd.DataFrame(bidata, columns=self.cols[:2])
+        tridata = multivariate_normal(data, cov, 2000)
+        self.tridf = pd.DataFrame(tridata, columns=self.cols)
+
+    def test_modes(self):
+        """Tests different ploting modes."""
+        for df in [self.bidf, self.tridf]:
+            with self.subTest(df=df):
+                for mode in ['density', 'hist2d', 'hexbin']:
+                    with self.subTest(mode=mode):
+                        out = densityplot(df, mode=mode)
+                        self.assertTrue(isinstance(out, matax.Axes))
+
 
 if __name__ == '__main__':
     unittest.main()
